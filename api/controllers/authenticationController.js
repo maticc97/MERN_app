@@ -2,6 +2,8 @@ const res = require('express/lib/response');
 const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
 const mongoose = require('mongoose');
+const req = require('express/lib/request');
+const { body } = require('express-validator');
 
 const REQUIRED_FIELDS_ERR = 'Please provide all of the required fields -----> ';
 const REGEX_EMAIL = new RegExp('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}');
@@ -58,6 +60,26 @@ const addUser = (req, res) => {
     .catch((error) => renderApiError(req, res, error));
 };
 
+const verifyUser = (req, res) => {
+  User
+    //check if email is taken
+    .findOne({ email: req.body.email })
+    .then(async (existingMailUser) => {
+      //if email is not taken, then check for taken username
+      if (!existingMailUser) {
+        res
+          .status(404)
+          .json({ errorMessage: 'Please check email or password' });
+      }
+      //if email is already taken
+      else {
+        
+      }
+    })
+    .catch((error) => renderApiError(req, res, error));
+};
+
 module.exports = {
   addUser,
+  verifyUser,
 };

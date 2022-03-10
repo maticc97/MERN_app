@@ -7,6 +7,6 @@ const authenticationController = require('../controllers/authenticationControlle
 // @desc    Test route
 // @access  Public
 router.post('/register/', authenticationController.addUser);
-router.post('/login/', (req, res) => res.send('User login'));
+router.post('/login/', authenticationController.verifyUser);
 
 module.exports = router;
