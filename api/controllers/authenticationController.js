@@ -9,6 +9,8 @@ const req = require('express/lib/request');
 const { body } = require('express-validator');
 
 const passport = require('passport');
+const { debug } = require('request');
+const logging = true;
 
 const REQUIRED_FIELDS_ERR = 'Please provide all of the required fields -----> ';
 const REGEX_EMAIL = new RegExp('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}');
@@ -59,9 +61,9 @@ const addUser = (req, res) => {
                   id: user.id,
                 },
               };
-              console.log('aa');
               jwt.sign(
                 payload,
+                //secret for hashing payload
                 config.get('jwtSecret'),
                 { expiresIn: 360000 },
                 (err, token) => {
@@ -84,22 +86,56 @@ const addUser = (req, res) => {
     .catch((error) => renderApiError(req, res, error));
 };
 
-const verifyUser = (req, res) => {
+//verify user to login
+const verifyUser = async (req, res) => {
+  if (logging) {
+    console.log('user: ' + req.body.email + ' attempting to log in');
+  }
   const { email, password } = req.body;
 
   if (!email || !password) {
     return res.status(400).json({
-      'error ': REQUIRED_FIELDS_ERR + ' fullName, username, email, password',
+      'error ': REQUIRED_FIELDS_ERR + ' email, password',
     });
   } else {
-    passport.authenticate('local', (error, user, info) => {
-      if (error) return res.status(500).json(error);
-      if (user) {
-        res.status(200).json({ token: user.generateJwt() });
-      } else {
-        res.status(401).json(info);
+    try {
+      let user = await User.findOne({ email });
+      if (!user) {
+        if (logging) {
+          console.log('Auth failed because of invalid credientals');
+        }
+        return res.status(404).json({ message: 'Invalid credientals' });
       }
-    });
+
+      //check if pass matches
+      const isMatch = await bcrypt.compare(password, user.password);
+
+      if (!isMatch) {
+        if (logging) {
+          console.log('Auth failed because of invalid credientals');
+        }
+        return res.status(404).json({ message: 'Invalid credientals' });
+      }
+
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      };
+      jwt.sign(
+        payload,
+        //secret for hashing payload
+        config.get('jwtSecret'),
+        { expiresIn: 360000 },
+        (err, token) => {
+          if (err) throw err;
+          if (logging) {
+            console.log('Auth OK ' + req.body.email + ' signed in');
+          }
+          res.status(200).json({ token });
+        }
+      );
+    } catch (error) {}
   }
 };
 
