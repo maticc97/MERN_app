@@ -1,10 +1,25 @@
 const res = require('express/lib/response');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('config');
+
 const User = require('../../models/User');
 const mongoose = require('mongoose');
+const req = require('express/lib/request');
+const { body } = require('express-validator');
+
+const passport = require('passport');
+const { debug } = require('request');
+const logging = true;
 
 const REQUIRED_FIELDS_ERR = 'Please provide all of the required fields -----> ';
 const REGEX_EMAIL = new RegExp('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}');
+
+async function encryptPassword(password) {
+  const salt = await bcrypt.genSalt(10);
+  password = await bcrypt.hash(password, salt);
+  return password;
+}
 
 const addUser = (req, res) => {
   const { username, email, password } = req.body;
@@ -38,11 +53,24 @@ const addUser = (req, res) => {
               const user = new User();
               user.username = username;
               user.email = email;
-              const salt = await bcrypt.genSalt(10);
-              user.password = await bcrypt.hash(password, salt);
+              user.password = await encryptPassword(password);
               await user.save();
               //sucessfuly added
-              return res.status(200).send();
+              const payload = {
+                user: {
+                  id: user.id,
+                },
+              };
+              jwt.sign(
+                payload,
+                //secret for hashing payload
+                config.get('jwtSecret'),
+                { expiresIn: 360000 },
+                (err, token) => {
+                  if (err) throw err;
+                  res.status(200).json({ token });
+                }
+              );
               //.json({ token: user.generateJwt() });
             }
           }
@@ -58,6 +86,60 @@ const addUser = (req, res) => {
     .catch((error) => renderApiError(req, res, error));
 };
 
+//verify user to login
+const verifyUser = async (req, res) => {
+  if (logging) {
+    console.log('user: ' + req.body.email + ' attempting to log in');
+  }
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({
+      'error ': REQUIRED_FIELDS_ERR + ' email, password',
+    });
+  } else {
+    try {
+      let user = await User.findOne({ email });
+      if (!user) {
+        if (logging) {
+          console.log('Auth failed because of invalid credientals');
+        }
+        return res.status(404).json({ message: 'Invalid credientals' });
+      }
+
+      //check if pass matches
+      const isMatch = await bcrypt.compare(password, user.password);
+
+      if (!isMatch) {
+        if (logging) {
+          console.log('Auth failed because of invalid credientals');
+        }
+        return res.status(404).json({ message: 'Invalid credientals' });
+      }
+
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      };
+      jwt.sign(
+        payload,
+        //secret for hashing payload
+        config.get('jwtSecret'),
+        { expiresIn: 360000 },
+        (err, token) => {
+          if (err) throw err;
+          if (logging) {
+            console.log('Auth OK ' + req.body.email + ' signed in');
+          }
+          res.status(200).json({ token });
+        }
+      );
+    } catch (error) {}
+  }
+};
+
 module.exports = {
   addUser,
+  verifyUser,
 };
