@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Landing = () => {
   return (
-    <section classNameName='landing'>
+    <section className='Landing'>
       <div className='dark-overlay'>
         <div className='landing-inner'>
           <h1 className='x-large'>NetConf monitor</h1>
@@ -10,12 +11,12 @@ export const Landing = () => {
             Portal for monitoring network devices using netconf
           </p>
           <div className='buttons'>
-            <a href='register.html' className='btn btn-primary'>
+            <Link to='/register' className='btn btn-primary'>
               Sign Up
-            </a>
-            <a href='login.html' className='btn btn-light'>
+            </Link>
+            <Link to='/login' className='btn btn-light'>
               Login
-            </a>
+            </Link>
           </div>
         </div>
       </div>
