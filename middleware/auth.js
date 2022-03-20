@@ -11,7 +11,7 @@ module.exports = function (req, res, next) {
     return res.status(401).json({ msg: 'No token, auth denied' });
   }
 
-  //verify token
+  //verify token if there is one
   try {
     const decoded = jwt.verify(token, config.get('jwtSecret'));
 
@@ -23,7 +23,6 @@ module.exports = function (req, res, next) {
               };*/
 
     //we can use req.user later
-
     req.user = decoded.user;
     if (debug) {
       console.log('User ID decoded from token ->', req.user);
