@@ -12,6 +12,8 @@ const passport = require('passport');
 const { debug } = require('request');
 const logging = true;
 
+const timestamp = require('../../config/time.js');
+
 const REQUIRED_FIELDS_ERR = 'Please provide all of the required fields -----> ';
 const REGEX_EMAIL = new RegExp('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}');
 
@@ -21,6 +23,7 @@ async function encryptPassword(password) {
   return password;
 }
 
+//add new user
 const addUser = (req, res) => {
   const { username, email, password } = req.body;
 
@@ -89,7 +92,10 @@ const addUser = (req, res) => {
 //verify user to login
 const verifyUser = async (req, res) => {
   if (logging) {
-    console.log('user: ' + req.body.email + ' attempting to log in');
+    console.log(
+      'user: ' + req.body.email + ' attempted to log in at',
+      timestamp.get_timestamp()
+    );
   }
   const { email, password } = req.body;
 
@@ -130,7 +136,12 @@ const verifyUser = async (req, res) => {
         (err, token) => {
           if (err) throw err;
           if (logging) {
-            console.log('Auth OK ' + req.body.email + ' signed in');
+            console.log(
+              'Auth OK, user ' +
+                req.body.email +
+                ' sucessfully signed in at ' +
+                timestamp.get_timestamp()
+            );
           }
           res.status(200).json({ token });
         }
