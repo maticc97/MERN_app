@@ -1,16 +1,16 @@
 import React, { Fragment, useState } from 'react';
 const axios = require('axios');
-const proxy = require('../../config/var.json');
 
+const proxy = require('../../config/var.json');
 function Register() {
   const [formData, setFormData] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
     password2: '',
   });
 
-  const { name, email, password, password2 } = formData;
+  const { username, email, password, password2 } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,23 +21,21 @@ function Register() {
       console.log('Psswords do not match');
     } else {
       const newUser = {
-        name,
+        username,
         email,
         password,
       };
       try {
         const config = {
           headers: {
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': '*',
+            Accept: 'application/json',
             'Content-Type': 'application/json',
           },
         };
         const body = JSON.stringify(newUser);
 
         const res = axios.post(
-          proxy.proxy_URI + '/auth/register',
+          'http://localhost:5000/auth/register',
           body,
           config
         );
@@ -57,8 +55,8 @@ function Register() {
           <input
             type='text'
             placeholder='Full Name'
-            name='name'
-            value={name}
+            name='username'
+            value={username}
             onChange={(e) => onChange(e)}
             required
           />

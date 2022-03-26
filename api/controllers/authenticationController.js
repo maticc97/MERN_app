@@ -25,10 +25,11 @@ async function encryptPassword(password) {
 
 //add new user
 const addUser = (req, res) => {
+  console.log(req.body);
   const { username, email, password } = req.body;
 
   if (!username || !email || !password) {
-    return res.status(422).json({
+    return res.status(421).json({
       error: REQUIRED_FIELDS_ERR + 'username, email, password',
     });
   } else if (!REGEX_EMAIL.test(email)) {
@@ -47,13 +48,16 @@ const addUser = (req, res) => {
           async (existingUsernameUser) => {
             //if username is already taken
             if (existingUsernameUser) {
+              console.log(existingUsernameUser);
+              if (logging) console.log('Username taken');
               return res
                 .status(410)
                 .json({ message: 'username already taken' });
+
               //else create new user
             } else {
               //create new user
-              const user = new User();
+              const user = await new User();
               user.username = username;
               user.email = email;
               user.password = await encryptPassword(password);
@@ -64,12 +68,15 @@ const addUser = (req, res) => {
                   id: user.id,
                 },
               };
+              console.log(payload);
               jwt.sign(
                 payload,
                 //secret for hashing payload
                 config.get('jwtSecret'),
                 { expiresIn: 360000 },
                 (err, token) => {
+                  if (logging)
+                    console.log('New user --> ', username, ' created');
                   if (err) throw err;
                   res.status(200).json({ token });
                 }
@@ -81,6 +88,7 @@ const addUser = (req, res) => {
       }
       //if email is already taken
       else {
+        if (logging) console.log('E-mail taken');
         return res
           .status(409)
           .json({ existingMailUser: 'this e-mail already in use' });
