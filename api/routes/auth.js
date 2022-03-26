@@ -7,7 +7,7 @@ const auth = require('../../middleware/auth');
 // @route   GET api/auth
 // @desc    Test route
 // @access  Public
-router.post('/register/', authenticationController.addUser);
+router.post('/auth/register/', authenticationController.addUser);
 router.post('/login/', authenticationController.verifyUser);
 
 module.exports = router;
