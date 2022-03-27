@@ -16,7 +16,7 @@ const App = () => (
     <Fragment>
       <Navbar />
       <Routes>
-        <Route path='/' element={<Landing />}></Route>
+        <Route path='/' element={<Landing />} />
       </Routes>
       <section className='container'>
         <Routes>
