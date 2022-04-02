@@ -26,10 +26,10 @@ app.use(express.json({ extended: false }));
 app.get('/', (req, res) => res.send('API running'));
 
 //define routes
-app.use('/', require('./api/routes/auth'));
-app.use('/pivo/', require('./api/routes/pivo'));
-app.use('/dogodki/', require('./api/routes/dogodki'));
-app.use('/lestvica/', require('./api/routes/lestvica'));
+app.use('api/v1/', require('./api/routes/auth'));
+app.use('api/v1/customers/', require('./api/routes/customers'));
+//app.use('api/v1/:customerId', require('./api/routes/pivo'));                                                                                                                                                                                                                                                                                                                                     ', require('./api/routes/dogodki'));
+//app.use('/lestvica/', require('./api/routes/lestvica'));
 
 const PORT = process.env.PORT || 5000; //if no env.PORT ser in file then use 5000
 
