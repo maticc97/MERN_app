@@ -1,4 +1,4 @@
-const debug = true;
+const debug = false;
 const jwt = require('jsonwebtoken');
 const config = require('config');
 

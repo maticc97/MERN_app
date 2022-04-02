@@ -5,24 +5,27 @@ const config = require('config');
 
 const Customer = require('../../models/Customer');
 const User = require('../../models/User');
+const Device = require('../../models/Device');
 const mongoose = require('mongoose');
 const req = require('express/lib/request');
 const { body } = require('express-validator');
 
 const passport = require('passport');
 const { debug } = require('request');
-const logging = true;
+const logging = false;
 
 const timestamp = require('../../config/time.js');
 const REQUIRED_FIELDS_ERR = 'Please provide all of the required fields -----> ';
 const REGEX_EMAIL = new RegExp('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}');
 
 const getCustomers = (req, res) => {
-  res.status(200).json({ msg: 'get Customers', request: req.customerId });
+  Customer.find({}, function (err, users) {
+    if (err) res.send(500).json({ err: 'Internal server error' });
+    return res.status(200).json(users);
+  });
 };
 
 const addNewCustomer = (req, res) => {
-  console.log(req.user);
   const { name, contact_email, engineer_email } = req.body;
 
   if (!name || !contact_email || !engineer_email) {
@@ -71,22 +74,53 @@ const addNewCustomer = (req, res) => {
 };
 
 const getCustomerInfo = (req, res) => {
-  console.log(req.user.id);
-  res
-    .status(200)
-    .json({ msg: 'get Customers info', request: req.params.customerId });
+  if (logging)
+    console.log('Requested info for customer : ', req.params.customerId);
+  Customer.findOne({ name: req.params.customerId }).then(
+    async (customerInfo) => {
+      if (customerInfo) res.status(200).json(customerInfo);
+      else return res.status(404).send();
+    }
+  );
 };
 
 const getDevices = (req, res) => {
-  res.status(200).json({ msg: 'get Customers' });
+  Device.find({}, function (err, devices) {
+    if (err) res.send(500).json({ err: 'Internal server error' });
+    return res.status(200).json(devices);
+  });
 };
 
 const addNewDevice = (req, res) => {
-  res.status(200).json({ msg: 'get Customers' });
+  const { hostname, customer, type, ip_address, cli_username, cli_password } =
+    req.body;
+
+  Device.findOne({ ip_address: ip_address, customer: customer }).then(
+    async (existing_ipaddr) => {
+      if (!existing_ipaddr) {
+        //find signed in user from token
+        let added_by = await User.findOne({ id: req.user.id });
+        const device = await new Device();
+        device.hostname = hostname;
+        device.customer = customer;
+        device.type = type;
+        device.ip_address = ip_address;
+        device.cli_username = cli_username;
+        device.cli_password = cli_password;
+        device.added_by = added_by.username;
+        device.save();
+        return res.status(201).json({ Added_device: hostname });
+      } else return res.status(422).json({ msg: 'Device already in DB ' });
+    }
+  );
 };
 
 const getDeviceInfo = (req, res) => {
-  res.status(200).json({ msg: 'get Customers' });
+  if (logging) console.log('Requested info for device : ', req.params.deviceId);
+  Device.findOne({ name: req.params.deviceId }).then(async (deviceInfo) => {
+    if (deviceInfo) res.status(200).json(deviceInfo);
+    else return res.status(404).send();
+  });
 };
 
 module.exports = {

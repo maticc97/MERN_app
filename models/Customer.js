@@ -11,7 +11,6 @@ const CustomerSchema = new mongoose.Schema({
   contact_email: {
     type: String,
     required: true,
-    unique: true,
   },
   engineer_email: {
     type: String,
