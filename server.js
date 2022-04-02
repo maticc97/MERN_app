@@ -26,8 +26,8 @@ app.use(express.json({ extended: false }));
 app.get('/', (req, res) => res.send('API running'));
 
 //define routes
-app.use('api/v1/', require('./api/routes/auth'));
-app.use('api/v1/customers/', require('./api/routes/customers'));
+app.use('/api/v1/', require('./api/routes/auth'));
+app.use('/api/v1/customers/', require('./api/routes/customers'));
 //app.use('api/v1/:customerId', require('./api/routes/pivo'));                                                                                                                                                                                                                                                                                                                                     ', require('./api/routes/dogodki'));
 //app.use('/lestvica/', require('./api/routes/lestvica'));
 
