@@ -117,10 +117,27 @@ const addNewDevice = (req, res) => {
 
 const getDeviceInfo = (req, res) => {
   if (logging) console.log('Requested info for device : ', req.params.deviceId);
-  Device.findOne({ name: req.params.deviceId }).then(async (deviceInfo) => {
+  Device.findOne({ hostname: req.params.deviceId }).then(async (deviceInfo) => {
     if (deviceInfo) res.status(200).json(deviceInfo);
     else return res.status(404).send();
   });
+};
+
+const deleteDevice = (req, res) => {
+  console.log(req.params.deviceId);
+  if (logging) console.log('Requested info for device : ', req.params.deviceId);
+
+  Device.findOneAndDelete(
+    {
+      hostname: req.params.deviceId,
+      cusotmer: req.params.customerId,
+    },
+    function (err) {
+      if (err) {
+        console.log(err);
+      } else return res.status(204).send();
+    }
+  );
 };
 
 module.exports = {
@@ -130,4 +147,5 @@ module.exports = {
   getDeviceInfo,
   getDevices,
   addNewDevice,
+  deleteDevice,
 };

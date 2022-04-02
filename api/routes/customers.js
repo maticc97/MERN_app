@@ -19,4 +19,10 @@ router.get(
   customerController.getDeviceInfo
 );
 
+router.delete(
+  '/:customerId/devices/:deviceId/',
+  auth,
+  customerController.deleteDevice
+);
+
 module.exports = router;
