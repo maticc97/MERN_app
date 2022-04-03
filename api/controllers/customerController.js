@@ -18,6 +18,7 @@ const timestamp = require('../../config/time.js');
 const REQUIRED_FIELDS_ERR = 'Please provide all of the required fields -----> ';
 const REGEX_EMAIL = new RegExp('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}');
 
+//get all customers
 const getCustomers = (req, res) => {
   Customer.find({}, function (err, users) {
     if (err) res.send(500).json({ err: 'Internal server error' });
@@ -25,6 +26,7 @@ const getCustomers = (req, res) => {
   });
 };
 
+//add new customer
 const addNewCustomer = (req, res) => {
   const { name, contact_email, engineer_email } = req.body;
 
@@ -41,9 +43,7 @@ const addNewCustomer = (req, res) => {
       error: 'Must be in an email format (___@__.__)',
     });
   }
-
   //find which user is adding company
-
   Customer
     //check if company is already in database
     .findOne({ name: req.body.name })
@@ -78,6 +78,7 @@ const addNewCustomer = (req, res) => {
     .catch((error) => renderApiError(req, res, error));
 };
 
+//get customer info
 const getCustomerInfo = (req, res) => {
   if (logging)
     console.log(
@@ -93,8 +94,9 @@ const getCustomerInfo = (req, res) => {
   );
 };
 
+// get all customers devices
 const getDevices = (req, res) => {
-  Device.find({}, function (err, devices) {
+  Device.find({ customer: req.params.customerId }, function (err, devices) {
     if (err) res.send(500).json({ err: 'Internal server error' });
     return res.status(200).json(devices);
   });
@@ -138,8 +140,6 @@ const getDeviceInfo = (req, res) => {
 };
 
 const deleteDevice = (req, res) => {
-  console.log(req.params.deviceId);
-
   Device.findOneAndDelete(
     {
       hostname: req.params.deviceId,
@@ -161,6 +161,85 @@ const deleteDevice = (req, res) => {
   );
 };
 
+const deleteCustomer = (req, res) => {
+  Customer.findOneAndRemove(
+    {
+      name: req.params.customerId,
+    },
+    function (err) {
+      if (err) {
+        return res.status(500).send();
+      }
+      if (logging) {
+        console.log(
+          timestamp.get_timestamp(),
+          'Deleted customer : ',
+          req.params.customerId
+        );
+      }
+      return res.status(204).send();
+    }
+  );
+};
+
+const editCustomer = (req, res) => {
+  Customer.findOneAndUpdate(
+    {
+      name: req.params.customerId,
+    },
+    {
+      name: req.body.name,
+      contact_email: req.body.contact_email,
+      engineer_email: req.body.engineer_email,
+    },
+    { upsert: true },
+    function (err) {
+      if (err) {
+        console.log(err);
+        return res.status(500).send();
+      }
+      if (logging) {
+        console.log(
+          timestamp.get_timestamp(),
+          'Modified customer : ',
+          req.params.customerId
+        );
+      }
+      //modify field "customer" in devices
+      Device.updateMany(
+        { customer: req.params.customerId },
+        { customer: req.body.name },
+        { upsert: true },
+        function (err) {
+          if (err) return res.status(500);
+        }
+      );
+      return res.status(204).send();
+    }
+  );
+};
+
+const editDevice = (req, res) => {
+  Customer.findOneAndDelete(
+    {
+      cusotmer: req.params.customerId,
+    },
+    function (err) {
+      if (err) {
+        return res.status(500).send();
+      }
+      if (logging) {
+        console.log(
+          timestamp.get_timestamp(),
+          'Deleted customer : ',
+          req.params.customerId
+        );
+      }
+      return res.status(204).send();
+    }
+  );
+};
+
 module.exports = {
   getCustomerInfo,
   addNewCustomer,
@@ -169,4 +248,7 @@ module.exports = {
   getDevices,
   addNewDevice,
   deleteDevice,
+  deleteCustomer,
+  editCustomer,
+  editDevice,
 };
