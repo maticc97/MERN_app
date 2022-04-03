@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const customerController = require('../controllers/customerController.js');
-const auth = require('../../middleware/auth');
+const auth = require('../middleware/auth');
 
 // @route   GET api/auth
 // @desc    Test route

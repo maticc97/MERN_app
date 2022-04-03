@@ -3,14 +3,14 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
-const User = require('../../models/User');
+const User = require('../models/User');
 const mongoose = require('mongoose');
 const req = require('express/lib/request');
 const { body } = require('express-validator');
 
 const passport = require('passport');
 const { debug } = require('request');
-const logging = true;
+const logging = config.get('debug');
 
 const timestamp = require('../../config/time.js');
 
@@ -25,7 +25,6 @@ async function encryptPassword(password) {
 
 //add new user
 const addUser = (req, res) => {
-  console.log(req.body);
   const { username, email, password } = req.body;
 
   if (!username || !email || !password) {
@@ -48,8 +47,12 @@ const addUser = (req, res) => {
           async (existingUsernameUser) => {
             //if username is already taken
             if (existingUsernameUser) {
-              console.log(existingUsernameUser);
-              if (logging) console.log('Username taken');
+              if (logging)
+                console.log(
+                  timestamp.get_timestamp(),
+                  'Username taken',
+                  existingUsernameUser.username
+                );
               return res
                 .status(410)
                 .json({ message: 'username already taken' });
@@ -68,7 +71,6 @@ const addUser = (req, res) => {
                   id: user.id,
                 },
               };
-              console.log(payload);
               jwt.sign(
                 payload,
                 //secret for hashing payload
@@ -76,7 +78,12 @@ const addUser = (req, res) => {
                 { expiresIn: 360000 },
                 (err, token) => {
                   if (logging)
-                    console.log('New user --> ', username, ' created');
+                    console.log(
+                      timestamp.get_timestamp(),
+                      ' New user --> ',
+                      username,
+                      ' created'
+                    );
                   if (err) throw err;
                   res.status(200).json({ token });
                 }
@@ -88,10 +95,15 @@ const addUser = (req, res) => {
       }
       //if email is already taken
       else {
-        if (logging) console.log('E-mail taken');
+        if (logging)
+          console.log(
+            timestamp.get_timestamp(),
+            'E-mail taken :',
+            existingMailUser.email
+          );
         return res
           .status(409)
-          .json({ existingMailUser: 'this e-mail already in use' });
+          .json({ 'this e-mail already in use': existingMailUser.email });
       }
     })
     .catch((error) => renderApiError(req, res, error));
@@ -101,6 +113,7 @@ const addUser = (req, res) => {
 const verifyUser = async (req, res) => {
   if (logging) {
     console.log(
+      timestamp.get_timestamp(),
       'user: ' + req.body.email + ' attempted to log in at',
       timestamp.get_timestamp()
     );
@@ -116,7 +129,10 @@ const verifyUser = async (req, res) => {
       let user = await User.findOne({ email });
       if (!user) {
         if (logging) {
-          console.log('Auth failed because of invalid credientals');
+          console.log(
+            timestamp.get_timestamp(),
+            'Auth failed because of invalid credientals'
+          );
         }
         return res.status(404).json({ message: 'Invalid credientals' });
       }
@@ -126,7 +142,10 @@ const verifyUser = async (req, res) => {
 
       if (!isMatch) {
         if (logging) {
-          console.log('Auth failed because of invalid credientals');
+          console.log(
+            timestamp.get_timestamp(),
+            'Auth failed because of invalid credientals'
+          );
         }
         return res.status(404).json({ message: 'Invalid credientals' });
       }
@@ -145,6 +164,7 @@ const verifyUser = async (req, res) => {
           if (err) throw err;
           if (logging) {
             console.log(
+              timestamp.get_timestamp(),
               'Auth OK, user ' +
                 req.body.email +
                 ' sucessfully signed in at ' +

@@ -3,16 +3,16 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
-const Customer = require('../../models/Customer');
-const User = require('../../models/User');
-const Device = require('../../models/Device');
+const Customer = require('../models/Customer');
+const User = require('../models/User');
+const Device = require('../models/Device');
 const mongoose = require('mongoose');
 const req = require('express/lib/request');
 const { body } = require('express-validator');
 
 const passport = require('passport');
 const { debug } = require('request');
-const logging = false;
+const logging = config.get('debug');
 
 const timestamp = require('../../config/time.js');
 const REQUIRED_FIELDS_ERR = 'Please provide all of the required fields -----> ';
@@ -64,7 +64,12 @@ const addNewCustomer = (req, res) => {
       //if email is already taken
       else {
         //console.log(req.body.name);
-        if (logging) console.log('Company dupicated');
+        if (logging)
+          console.log(
+            timestamp.get_timestamp(),
+            ' Company already exists in DB:',
+            name
+          );
         return res
           .status(409)
           .json({ existingCopmany: 'this company alredy in DB' });
@@ -75,11 +80,15 @@ const addNewCustomer = (req, res) => {
 
 const getCustomerInfo = (req, res) => {
   if (logging)
-    console.log('Requested info for customer : ', req.params.customerId);
+    console.log(
+      timestamp.get_timestamp(),
+      'Requested info for customer : ',
+      req.params.customerId
+    );
   Customer.findOne({ name: req.params.customerId }).then(
     async (customerInfo) => {
       if (customerInfo) res.status(200).json(customerInfo);
-      else return res.status(404).send();
+      else return res.status(404).send() && console.log('Customer not found');
     }
   );
 };
@@ -116,7 +125,12 @@ const addNewDevice = (req, res) => {
 };
 
 const getDeviceInfo = (req, res) => {
-  if (logging) console.log('Requested info for device : ', req.params.deviceId);
+  if (logging)
+    console.log(
+      timestamp.get_timestamp(),
+      ' Requested info for device : ',
+      req.params.deviceId
+    );
   Device.findOne({ hostname: req.params.deviceId }).then(async (deviceInfo) => {
     if (deviceInfo) res.status(200).json(deviceInfo);
     else return res.status(404).send();
@@ -125,7 +139,6 @@ const getDeviceInfo = (req, res) => {
 
 const deleteDevice = (req, res) => {
   console.log(req.params.deviceId);
-  if (logging) console.log('Requested info for device : ', req.params.deviceId);
 
   Device.findOneAndDelete(
     {
@@ -134,8 +147,16 @@ const deleteDevice = (req, res) => {
     },
     function (err) {
       if (err) {
-        console.log(err);
-      } else return res.status(204).send();
+        return res.status(500).send();
+      }
+      if (logging) {
+        console.log(
+          timestamp.get_timestamp(),
+          'Deleted device : ',
+          req.params.deviceId
+        );
+      }
+      return res.status(204).send();
     }
   );
 };
