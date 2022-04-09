@@ -1,11 +1,10 @@
-const debug = true;
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const logging = config.get('debug');
 
 module.exports = function (req, res, next) {
   //Get token from header
   const token = req.header('x-auth-token');
-
   //check if not token
   if (!token) {
     return res.status(401).json({ msg: 'No token, auth denied' });
@@ -24,7 +23,7 @@ module.exports = function (req, res, next) {
 
     //we can use req.user later
     req.user = decoded.user;
-    if (debug) {
+    if (logging) {
       console.log('User ID decoded from token ->', req.user);
     }
     next(); //ext is used to pass control to the next middleware function
