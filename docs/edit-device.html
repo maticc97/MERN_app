@@ -45,9 +45,10 @@
             </ul>
           </div>
         </li>
-        <a href="./login-page.html" class="btn btn-outline-danger my-2 my-sm-0" type="submit" style="color: red;">
+
+        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
           Sign Out
-        </a>
+        </button>
       </ul>
 
       <!-- <input class="form-control form-control-dark w-100 d-block d-md-none" type="text"
@@ -66,19 +67,19 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./customer-master.html">
+                <a class="nav-link inactive" href="./customer-master.html">
                   <span data-feather="arrow-right"></span>
                   Customer 2
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./customer-master.html">
+                <a class="nav-link inactive" href="./customer-master.html">
                   <span data-feather="arrow-right"></span>
                   Customer 3
                 </a>
               </li>
               <li class="nav-item" style="margin-top: 50px !important">
-                <a class="nav-link " href="./add-customer.html">
+                <a class="nav-link inactive" href="./add-customer.html">
                   <span data-feather="folder-plus"></span>
                   Add new
                 </a>
@@ -88,8 +89,64 @@
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <h1>Router 1 (10.10.100.1)</h1>
           <!-- CUSTOM CONTENT -->
-          <div class="custom-content">Custom page content</div>
+          <form style="width: 50%">
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="inlineRadio1"
+                value="router"
+                checked
+              />
+              <label class="form-check-label" for="inlineRadio1">Router</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="inlineRadio2"
+                value="switch"
+              />
+              <label class="form-check-label" for="inlineRadio2">Switch</label>
+            </div>
+            <div class="form-group">
+              <label for="IP address"><b>IP address</b></label>
+              <input
+                required
+                type="text"
+                class="form-control"
+                id="ip_address"
+                value="10.10.100.1"
+              />
+            </div>
+            <div class="form-group">
+              <label for="Contact email"><b>CLI username</b></label>
+              <input
+                required
+                type="text"
+                class="form-control"
+                id="cli_username"
+                value="admin"
+              />
+            </div>
+            <div class="form-group">
+              <label for="Contact email"><b>CLI password</b></label>
+              <input
+                required
+                type="password"
+                class="form-control"
+                id="cli_password"
+                value="C!sco123"
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="./customer-master.html" id="cancel" name="cancel" class="btn btn-danger">Cancel</a>
+          </form>
         </main>
       </div>
     </div>

@@ -45,9 +45,10 @@
             </ul>
           </div>
         </li>
-        <a href="./login-page.html" class="btn btn-outline-danger my-2 my-sm-0" type="submit" style="color: red;">
+
+        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
           Sign Out
-        </a>
+        </button>
       </ul>
 
       <!-- <input class="form-control form-control-dark w-100 d-block d-md-none" type="text"
@@ -66,19 +67,19 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./customer-master.html">
+                <a class="nav-link " href="./customer-master.html">
                   <span data-feather="arrow-right"></span>
                   Customer 2
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./customer-master.html">
+                <a class="nav-link " href="./customer-master.html">
                   <span data-feather="arrow-right"></span>
                   Customer 3
                 </a>
               </li>
               <li class="nav-item" style="margin-top: 50px !important">
-                <a class="nav-link " href="./add-customer.html">
+                <a class="nav-link active" href="./add-customer-master.html">
                   <span data-feather="folder-plus"></span>
                   Add new
                 </a>
@@ -88,8 +89,44 @@
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <h1>Edit Customer</h1>
           <!-- CUSTOM CONTENT -->
-          <div class="custom-content">Custom page content</div>
+          <form style="width: 50%">
+            <div class="form-group">
+              <label for="Customer">Customer</label>
+              <input
+                value="Customer 1"
+                type="text"
+                class="form-control"
+                id="name"
+                aria-describedby="emailHelp"
+                placeholder="Enter customer's name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="Contact email">Contact email</label>
+              <input
+                value="contact@mail.com"
+                type="email"
+                class="form-control"
+                id="contact_email"
+                placeholder="Enter Contact email"
+              />
+            </div>
+            <div class="form-group">
+              <label for="Contact email">Engineer email</label>
+              <input
+                value="engineer@contact.mail"
+                type="email"
+                class="form-control"
+                id="engineer_email"
+                placeholder="Enter Engineer's email"
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="./customer-master.html" id="cancel" name="cancel" class="btn btn-danger">Cancel</a>
+          </form>
         </main>
       </div>
     </div>

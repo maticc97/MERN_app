@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>NILConf</title>
+    <link rel="icon" href="./favicon.png" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./app.css" />
+    <link rel="stylesheet" href="./template.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="./login-page.html"
+        ><img src="./favicon.png" alt="" />NILconf</a
+      >
+
+      <!-- To add a search bar for the current functionality, uncomment the line below here, and under the navbar (around 20 rows below)-->
+
+      <!-- <input class="form-control form-control-dark w-100 d-none d-md-block" type="text"
+      placeholder="Quick text search ..." aria-label="Search" /> -->
+
+      <ul class="navbar-nav px-3">
+        <li
+          class="nav-item text-nowrap d-flex justify-content-between align-items-center"
+        >
+          <div class="mobile-menu d-inline-block d-sm-inline-block d-md-none">
+            <ul class="d-flex">
+              <a href="./customer-master.html">
+                <li><span data-feather="arrow-down"></span>Customer1</li>
+              </a>
+              <a href="./customer-master.html">
+                <li><span data-feather="arrow-down"></span>Customer2</li>
+              </a>
+              <a href="./customer-master.html">
+                <li><span data-feather="arrow-down"></span>Customer3</li>
+              </a>
+            </ul>
+          </div>
+        </li>
+      </ul>
+
+      <!-- <input class="form-control form-control-dark w-100 d-block d-md-none" type="text"
+      placeholder="Quick text search ..." aria-label="Search" /> -->
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="./customer-master.html">
+                  <span data-feather="arrow-right"></span>
+                  Customer 1
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="./customer-master.html">
+                  <span data-feather="arrow-right"></span>
+                  Customer 2
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="./customer-master.html">
+                  <span data-feather="arrow-right"></span>
+                  Customer 3
+                </a>
+              </li>
+              <li class="nav-item" style="margin-top: 50px !important">
+                <a class="nav-link " href="./add-customer-master.html">
+                  <span data-feather="folder-plus"></span>
+                  Add new
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <h6><b>Router 1 (10.10.100.1)</b></h6>
+           
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Hostname</th>
+                    <td>Router RT - 1</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">IP address</th>
+                    <td>10.10.100.1</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Customer</th>
+                    <td>Customer 1</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">CLI username</th>
+                    <td>admin</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Actions</th>
+                    <td><a class="btn btn-sm btn-primary" href="./text-annotation-token-labelling-add.html">Pull configuration</a>
+                        <a class="btn btn-sm btn-danger" href="./text-annotation-token-labelling-add.html">Delete device</a>
+                    </td> 
+                  </tr>
+                  <tr>
+                    <th scope="row">Configuration</th>
+                    <td><textarea name="career[message]" class="form-control" tabindex="1" rows="20"
+                        placeholder="Write your details" disabled>Router# show running-config
+                        Building configuration...
+                        Current configuration : 3781 bytes
+                        !
+                        version 12.3
+                        no service pad
+                        service timestamps debug datetime msec
+                        service timestamps log datetime msec
+                        no service password-encryption
+                        !
+                        hostname retail
+                        !
+                        boot-start-marker
+                        boot-end-marker
+                        !
+                        enable password cisco123
+                        !
+                        username jsomeone password 0 cg6#107X
+                        aaa new-model
+                        !
+                        aaa group server radius rad_eap
+                            server 10.0.1.1 auth-port 1812 acct-port 1813
+                        !
+                        aaa authentication login eap_methods group rad_eap
+                        aaa session-id common
+                        ip subnet-zero
+                        ip cef
+                        !
+                        vpdn enable
+                            vpdn-group 1
+                            request-dialin
+                            protocol pppoe
+                        !
+                        interface dialer 1
+                            ip address negotiated
+                            ppp authentication chap
+                            dialer pool 1
+                            dialer-group 1
+                        !
+                        dialer-list 1 protocol ip permit
+                            ip nat inside source list 1 interface dialer 0 overload
+                            ip classless (default)
+                            ip route 10.10.25.2 0.255.255.255 dialer 0
+                        !
+                        ip dhcp excluded-address 10.0.1.1 10.0.1.10
+                        ip dhcp excluded-address 10.0.2.1 10.0.2.10
+                        ip dhcp excluded-address 10.0.3.1 10.0.3.10
+                        !
+                        ip dhcp pool vlan1
+                           network 10.0.1.0 255.255.255.0
+                           default-router 10.0.1.1 
+                        !
+                        ip dhcp pool vlan2
+                           network 10.0.2.0 255.255.255.0
+                           default-router 10.0.2.1 
+                        !
+                        ip dhcp pool vlan3
+                           network 10.0.3.0 255.255.255.0
+                           default-router 10.0.3.1 
+                        !
+                        ip ips po max-events 100
+                        no ftp-server write-enable
+                        !
+                        bridge irb
+                        !
+                        interface FastEthernet0
+                            no ip address
+                        !
+                        interface FastEthernet1
+                            no ip address
+                        !
+                        interface FastEthernet2
+                            no ip address
+                        !
+                        interface FastEthernet3
+                            switchport mode trunk
+                            no ip address
+                        !
+                        interface FastEthernet4
+                            ip address 192.168.12.2 255.255.255.0
+                            no ip directed-broadcast (default)
+                            speed auto
+                            ip nat outside
+                            ip access-group 103 in
+                            no cdp enable
+                            crypto ipsec client ezvpn ezvpnclient outside
+                            crypto map static-map
+                        !
+                        crypto isakmp policy 1
+                            encryption 3des
+                            authentication pre-share
+                            group 2
+                            lifetime 480
+                        !
+                        crypto isakmp client configuration group rtr-remote
+                            key secret-password
+                            dns 10.50.10.1 10.60.10.1
+                            domain company.com
+                            pool dynpool
+                        !
+                        crypto ipsec transform-set vpn1 esp-3des esp-sha-hmac
+                        !
+                        crypto ipsec security-association lifetime seconds 86400
+                        !
+                        crypto dynamic-map dynmap 1
+                            set transform-set vpn1
+                            reverse-route
+                        !
+                        crypto map static-map 1 ipsec-isakmp dynamic dynmap
+                        crypto map dynmap isakmp authorization list rtr-remote
+                        crypto map dynmap client configuration address respond
+                        crypto ipsec client ezvpn ezvpnclient
+                            connect auto
+                            group 2 key secret-password
+                            mode client
+                            peer 192.168.100.1
+                        !
+                        interface Dot11Radio0
+                            no ip address
+                            !
+                            broadcast-key vlan 1 change 45
+                            !
+                            encryption vlan 1 mode ciphers tkip 
+                            !
+                            ssid cisco
+                                   vlan 1
+                                  authentication open 
+                                  authentication network-eap eap_methods 
+                                  authentication key-management wpa optional
+                             !
+                            ssid ciscowep
+                                vlan 2
+                                authentication open 
+                                !
+                            ssid ciscowpa
+                                vlan 3
+                                authentication open 
+                            !
+                            speed basic-1.0 basic-2.0 basic-5.5 6.0 9.0 basic-11.0 12.0 18.0 24.0 36.0 48.0 54.0
+                            rts threshold 2312
+                            power local cck 50
+                            power local ofdm 30
+                            channel 2462
+                            station-role root
+                        !
+                        interface Dot11Radio0.1
+                            description Cisco Open
+                            encapsulation dot1Q 1 native
+                            no cdp enable
+                            bridge-group 1
+                            bridge-group 1 subscriber-loop-control
+                            bridge-group 1 spanning-disabled
+                            bridge-group 1 block-unknown-source
+                            no bridge-group 1 source-learning
+                            no bridge-group 1 unicast-flooding
+                        !
+                        interface Dot11Radio0.2
+                            encapsulation dot1Q 2
+                            bridge-group 2
+                            bridge-group 2 subscriber-loop-control
+                            bridge-group 2 spanning-disabled
+                            bridge-group 2 block-unknown-source
+                            no bridge-group 2 source-learning
+                             no bridge-group 2 unicast-flooding
+                        !
+                        interface Dot11Radio0.3
+                            encapsulation dot1Q 3
+                            bridge-group 3
+                            bridge-group 3 subscriber-loop-control
+                            bridge-group 3 spanning-disabled
+                            bridge-group 3 block-unknown-source
+                            no bridge-group 3 source-learning
+                            no bridge-group 3 unicast-flooding
+                        !
+                        interface Vlan1
+                            no ip address
+                            no ip directed-broadcast (default)
+                            ip nat inside
+                            crypto ipsec client ezvpn ezvpnclient inside
+                            ip inspect firewall in
+                            no cdp enable
+                            bridge-group 1
+                            bridge-group 1 spanning-disabled
+                        !
+                        interface Vlan2
+                            no ip address
+                            bridge-group 2
+                            bridge-group 2 spanning-disabled
+                        !
+                        interface Vlan3
+                            no ip address
+                            bridge-group 3
+                            bridge-group 3 spanning-disabled
+                        !
+                        interface BVI1
+                            ip address 10.0.1.1 255.255.255.0
+                        !
+                        interface BVI2
+                            ip address 10.0.2.1 255.255.255.0
+                        !
+                        interface BVI3
+                            ip address 10.0.3.1 255.255.255.0
+                        !
+                        ip classless
+                        !
+                        ip http server
+                        no ip http secure-server
+                        !
+                        radius-server local
+                            nas 10.0.1.1 key 0 cisco123
+                            group rad_eap 
+                        !
+                        user jsomeone nthash 7 0529575803696F2C492143375828267C7A760E1113734624452725707C010B065B
+                        user AMER\jsomeone nthash 7 
+                        0224550C29232E041C6A5D3C5633305D5D560C09027966167137233026580E0B0D
+                        !
+                        radius-server host 10.0.1.1 auth-port 1812 acct-port 1813 key cisco123
+                        !
+                        control-plane
+                        !
+                        bridge 1 route ip
+                        bridge 2 route ip
+                        bridge 3 route ip
+                        !
+                        ip inspect name firewall tcp	
+                        ip inspect name firewall udp
+                        ip inspect name firewall rtsp
+                        ip inspect name firewall h323
+                        ip inspect name firewall netshow
+                        ip inspect name firewall ftp
+                        ip inspect name firewall sqlnet
+                        !
+                        access-list 103 permit udp host 200.1.1.1 any eq isakmp
+                        access-list 103 permit udp host 200.1.1.1 eq isakmp any
+                        access-list 103 permit esp host 200.1.1.1 any
+                        access-list 103 permit icmp any any
+                        access-list 103 deny ip any any
+                        access-list 105 permit ip 10.1.1.0 0.0.0.255 192.168.0.0 0.0.255.255
+                        no cdp run
+                        !
+                        line con 0
+                            password cisco123
+                            no modem enable
+                            transport preferred all
+                            transport output all
+                        line aux 0
+                            transport preferred all
+                            transport output all
+                        line vty 0 4
+                            password cisco123
+                            transport preferred all
+                            transport input all
+                            transport output all
+                        !
+                    </textarea>
+                    </td> 
+                  </tr>
+                </tbody>
+              </table>
+        </main>
+      </div>
+    </div>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace();
+    </script>
+  </body>
+</html>
