@@ -9,12 +9,14 @@ import { AuthenticationModule } from './components/authentication/authentication
 import { CustomerModule } from './components/customer/customer.module';
 import { AuthenticationLayoutComponent } from './components/authentication-layout/authentication-layout.component';
 import { CustomerRoutingModule } from './routes/app-routing/customer-routing.module';
+import { DeviceDetailsComponent } from './components/device/device-details/device-details.component';
 
 @NgModule({
   declarations: [
     LayoutComponent,
     MasterLayoutComponent,
     AuthenticationLayoutComponent,
+    DeviceDetailsComponent,
   ],
   imports: [
     BrowserModule,

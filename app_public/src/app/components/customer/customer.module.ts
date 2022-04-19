@@ -5,10 +5,11 @@ import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { MasterLayoutComponent } from '../master-layout/master-layout.component';
 
 import { AppRoutingModule } from 'src/app/routes/app-routing/app-routing.module';
+import { CustomerMasterComponent } from './customer-master/customer-master.component';
 
 @NgModule({
-  declarations: [AddCustomerComponent],
-  imports: [CommonModule],
-  exports: [AddCustomerComponent],
+  declarations: [AddCustomerComponent, CustomerMasterComponent],
+  imports: [CommonModule, AppRoutingModule],
+  exports: [AddCustomerComponent, CustomerMasterComponent],
 })
-export class CustomerModule {}
+export class CustomerModule { }

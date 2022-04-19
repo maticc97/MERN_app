@@ -1,0 +1,9 @@
+.d-md-block{
+    height: inherit;
+    background-color: rgb(233, 233, 233) !important;
+}
+
+html {
+    background-color: lightgrey;
+  }
+  
