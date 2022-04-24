@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-device-details',
-  templateUrl: './device-details.component.html',
-  styleUrls: ['./device-details.component.css']
+  selector: 'app-device-master',
+  templateUrl: './device-master.component.html',
+  styleUrls: ['./device-master.component.css']
 })
-export class DeviceDetailsComponent implements OnInit {
+export class DeviceMasterComponent implements OnInit {
 
   constructor() { }
 

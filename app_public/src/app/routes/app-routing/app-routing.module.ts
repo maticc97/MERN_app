@@ -9,21 +9,20 @@ import { AddCustomerComponent } from 'src/app/components/customer/add-customer/a
 import { RegisterComponent } from 'src/app/components/authentication/register/register.component';
 import { MasterLayoutComponent } from 'src/app/components/master-layout/master-layout.component';
 import { CustomerMasterComponent } from "src/app/components/customer/customer-master/customer-master.component";
-import { DeviceDetailsComponent } from "src/app/components/device/device-details/device-details.component";
+import { DeviceMasterComponent } from "src/app/components/device/device-master/device-master.component";
+import { EditCustomerComponent } from "src/app/components/customer/edit-customer/edit-customer.component";
+import { DeviceEditComponent } from "src/app/components/device/device-edit/device-edit.component";
+import { DeviceAddComponent } from "src/app/components/device/device-add/device-add.component";
 
 
 const routes: Routes = [
   {
-    path: 'add-customer',
-    component: MasterLayoutComponent, //to change
-  },
-  {
     path: 'device/:deviceId',
     component: MasterLayoutComponent,
     children: [
-      { path: "", component: AddCustomerComponent },
-      { path: "edit", component: AddCustomerComponent },
-      { path: "details", component: DeviceDetailsComponent }
+      { path: "", component: DeviceMasterComponent },
+      { path: "edit", component: DeviceEditComponent },
+      { path: "details", component: DeviceMasterComponent }
     ],
   },
   {
@@ -32,7 +31,8 @@ const routes: Routes = [
     children: [
       { path: "add", component: AddCustomerComponent },
       { path: ":customerId", component: CustomerMasterComponent },
-      { path: "customerId/add-device", component: AddCustomerComponent }
+      { path: ":customerId/add-device", component: DeviceAddComponent },
+      { path: ":customerId/edit", component: EditCustomerComponent }
     ],
   },
   {

@@ -6,4 +6,9 @@
 html {
     background-color: lightgrey;
   }
+
+.btn-danger, .btn-success, .btn  {
+     padding-left: 10px;
+     margin-right: 5px;
+  }
   

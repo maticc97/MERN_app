@@ -9,14 +9,18 @@ import { AuthenticationModule } from './components/authentication/authentication
 import { CustomerModule } from './components/customer/customer.module';
 import { AuthenticationLayoutComponent } from './components/authentication-layout/authentication-layout.component';
 import { CustomerRoutingModule } from './routes/app-routing/customer-routing.module';
-import { DeviceDetailsComponent } from './components/device/device-details/device-details.component';
+import { DeviceMasterComponent } from './components/device/device-master/device-master.component';
+import { DeviceEditComponent } from './components/device/device-edit/device-edit.component';
+import { DeviceAddComponent } from './components/device/device-add/device-add.component';
 
 @NgModule({
   declarations: [
     LayoutComponent,
     MasterLayoutComponent,
     AuthenticationLayoutComponent,
-    DeviceDetailsComponent,
+    DeviceMasterComponent,
+    DeviceEditComponent,
+    DeviceAddComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,4 +32,4 @@ import { DeviceDetailsComponent } from './components/device/device-details/devic
   providers: [],
   bootstrap: [LayoutComponent],
 })
-export class AppModule {}
+export class AppModule { }
