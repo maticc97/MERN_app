@@ -12,6 +12,7 @@ import { CustomerRoutingModule } from './routes/app-routing/customer-routing.mod
 import { DeviceMasterComponent } from './components/device/device-master/device-master.component';
 import { DeviceEditComponent } from './components/device/device-edit/device-edit.component';
 import { DeviceAddComponent } from './components/device/device-add/device-add.component';
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { DeviceAddComponent } from './components/device/device-add/device-add.co
     CustomerModule,
     AuthenticationModule,
     CustomerRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [LayoutComponent],

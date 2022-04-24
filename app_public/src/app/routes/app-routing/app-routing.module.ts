@@ -50,7 +50,7 @@ const routes: Routes = [
   providers: [],
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes, { enableTracing: true }),
+    RouterModule.forRoot(routes, { enableTracing: false }),
   ],
   exports: [RouterModule],
 })

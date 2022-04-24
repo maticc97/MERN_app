@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { APIDataService } from "src/app/api-data.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Title } from '@angular/platform-browser';
+//import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
+//import { AuthenticationService } from 'src/app/services/authentication.service';
+const PROJECT_ID_ROUTE_PARAM = 'projectId';
+const PROJECT_LIST_ROUTE = '/project';
+const customerId = '';
 
 @Component({
   selector: 'app-master',
@@ -7,54 +15,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerMasterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private APIDataService: APIDataService, private route: ActivatedRoute) { }
 
-  customer = {
-    _id: "62497c62bb25ae5385f31a5d",
-    timestamp: "2022-04-03T10:52:18.358Z",
-    name: "Customer1",
-    contact_email: "customer@email.si",
-    engineer_email: "mlulik@nil.si",
-    added_by: "Uporabnik_1"
+
+
+  public param!: string
+  public customer!: Customer;
+
+  public devices: Device[] = [];
+
+  private getDevices(): void {
+    this.APIDataService.getDevices(this.param).subscribe((allDevices) => this.devices = allDevices)
   }
 
-  devices: Device[] = [{
-    _id: "624979f53210bb4d64fc2a69",
-    timestamp: "2022-04-03T10:41:57.434Z",
-    hostname: "Device_3-SW",
-    type: "Router",
-    ip_address: "192.128.11.150",
-    added_by: "Uporabnik_1"
-  },
-  {
-    _id: "624979fa3210bb4d64fc2a6d",
-    timestamp: "2022-04-03T10:42:02.727Z",
-    hostname: "Device_4-SW",
-    type: "Router",
-    ip_address: "192.128.111.150",
-    added_by: "Uporabnik_1"
-
-  },
-  {
-    _id: "624979ff3210bb4d64fc2a71",
-    timestamp: "2022-04-03T10:42:07.871Z",
-    hostname: "Device_5-SW",
-    type: "Router",
-    ip_address: "19.128.111.150",
-    added_by: "Uporabnik_1"
-  },
-  {
-    _id: "624979ff3210bb4d64fc2a71",
-    timestamp: "2022-04-03T10:42:07.871Z",
-    hostname: "Device_7-SW",
-    type: "Router",
-    ip_address: "19.128.111.150",
-    added_by: "Uporabnik_1"
+  private getCustomerDetail(): void {
+    this.APIDataService.getCustomerDetail(this.param).subscribe((customer) => this.customer = customer)
   }
 
-  ]
-
-  ngOnInit(): void {
+  ngOnInit() {
+    this.param = this.route.snapshot.paramMap.get("customerId") as string;
+    this.getCustomerDetail()
+    this.getDevices()
   }
 
 }
@@ -69,4 +50,12 @@ export class Device {
   "added_by": string
 }
 
+export class Customer {
+  "_id": string;
+  "timestamp": string;
+  "name": string;
+  "contact_email": string;
+  "engineer_email": string;
+  "added_by": string
+}
 

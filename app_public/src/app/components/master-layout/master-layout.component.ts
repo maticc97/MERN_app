@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { APIDataService } from "src/app/api-data.service";
 
 @Component({
   selector: 'app-master-layout',
@@ -7,26 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MasterLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private APIDataService: APIDataService) { }
 
-  customers: Customer[] = [{
-    _id: "62497c62bb25ae5385f31a5d",
-    timestamp: "2022-04-03T10:52:18.358Z",
-    name: "Customer1",
-    contact_email: "customer@email.si",
-    engineer_email: "mlulik@nil.si",
-    added_by: "Uporabnik_1"
-  },
-  {
-    _id: "62497c69bb25ae5385f31a65",
-    timestamp: "2022-04-03T10:52:25.140Z",
-    name: "Customer3",
-    contact_email: "customer@email.si",
-    engineer_email: "mlulik@nil.si",
-    added_by: "Uporabnik_1"
+  public customers: Customer[] = [];
+
+  private getCustomers(): void {
+    this.APIDataService.getCustomers().subscribe((allCustomers) => this.customers = allCustomers)
   }
-  ]
+
   ngOnInit(): void {
+    this.getCustomers();
   }
 
 }

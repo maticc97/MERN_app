@@ -40,14 +40,14 @@
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item" *ngFor="let customer of customers">
-            <a class="nav-link active" routerLink="/customer/{{customer._id}}">
-              <span data-feather="arrow-right"></span>
+            <a class="nav-link active" routerLink="/customer/{{customer.name}}">
+              <i class="fa fa-building"></i>
               {{customer.name}}
             </a>
           </li>
           <li class="nav-item" style="margin-top: 50px !important">
             <a [routerLink]="['add']">
-              <span data-feather="folder-plus"></span>
+              <i class="fa fa-plus"></i>
               Add new
             </a>
           </li>
