@@ -4,14 +4,42 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AuthenticationLayoutComponent } from '../../components/authentication-layout/authentication-layout.component';
 import { LoginComponent } from 'src/app/components/authentication/login/login.component';
-import { RegisterComponent } from 'src/app/components/authentication/register/register.component';
+import { AddCustomerComponent } from 'src/app/components/customer/add-customer/add-customer.component';
 
-const paths: Routes = [
+import { RegisterComponent } from 'src/app/components/authentication/register/register.component';
+import { MasterLayoutComponent } from 'src/app/components/master-layout/master-layout.component';
+import { CustomerMasterComponent } from "src/app/components/customer/customer-master/customer-master.component";
+import { DeviceMasterComponent } from "src/app/components/device/device-master/device-master.component";
+import { EditCustomerComponent } from "src/app/components/customer/edit-customer/edit-customer.component";
+import { DeviceEditComponent } from "src/app/components/device/device-edit/device-edit.component";
+import { DeviceAddComponent } from "src/app/components/device/device-add/device-add.component";
+
+
+const routes: Routes = [
+  {
+    path: 'device/:deviceId',
+    component: MasterLayoutComponent,
+    children: [
+      { path: "", component: DeviceMasterComponent },
+      { path: "edit", component: DeviceEditComponent },
+      { path: "details", component: DeviceMasterComponent }
+    ],
+  },
+  {
+    path: 'customer',
+    component: MasterLayoutComponent,
+    children: [
+      { path: "add", component: AddCustomerComponent },
+      { path: ":customerId", component: CustomerMasterComponent },
+      { path: ":customerId/add-device", component: DeviceAddComponent },
+      { path: ":customerId/edit", component: EditCustomerComponent }
+    ],
+  },
   {
     path: '',
     component: AuthenticationLayoutComponent,
     children: [
-      { path: 'login', component: LoginComponent },
+      { path: 'login', component: LoginComponent, pathMatch: 'full' },
       { path: 'register', component: RegisterComponent },
     ],
   },
@@ -20,7 +48,10 @@ const paths: Routes = [
 @NgModule({
   declarations: [],
   providers: [],
-  imports: [CommonModule, RouterModule.forRoot(paths)],
+  imports: [
+    CommonModule,
+    RouterModule.forRoot(routes, { enableTracing: false }),
+  ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

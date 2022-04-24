@@ -11,7 +11,7 @@ router.get('/', auth, devicesController.devices);
 router.post('/', auth, devicesController.devices);
 
 router.get('/:customerId/', auth, devicesController.getDeviceInfo);
-router.get('/:customerId/devices/', auth, devicesController.devices);
+router.get('/:customerId/devices/', devicesController.devices);
 router.post('/:customerId/devices/', auth, devicesController.devices);
 router.get(
   '/:customerId/devices/:deviceId/',

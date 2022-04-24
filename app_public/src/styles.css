@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+.d-md-block{
+    height: inherit;
+    background-color: rgb(233, 233, 233) !important;
+}
+
+html {
+    background-color: lightgrey;
+  }
+
+.btn-danger, .btn-success, .btn  {
+     padding-left: 10px;
+     margin-right: 5px;
+  }
+  

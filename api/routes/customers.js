@@ -9,14 +9,14 @@ const auth = require('../middleware/auth');
 // @access  Public
 
 //customers
-router.get('/', auth, customerController.getCustomers);
+router.get('/', customerController.getCustomers);
 router.post('/', auth, customerController.addNewCustomer);
-router.get('/:customerId/', auth, customerController.getCustomerInfo);
+router.get('/:customerId/', customerController.getCustomerInfo);
 router.delete('/:customerId/', auth, customerController.deleteCustomer);
 router.put('/:customerId/', auth, customerController.editCustomer);
 
 //customer -> devices
-router.get('/:customerId/devices/', auth, customerController.getDevices);
+router.get('/:customerId/devices/', customerController.getDevices);
 router.post('/:customerId/devices/', auth, customerController.addNewDevice);
 router.get(
   '/:customerId/devices/:deviceId/',

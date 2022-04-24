@@ -1,0 +1,66 @@
+<main role="main" >
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap
+        align-items-center pb-2 mb-3">
+        <h1 class="h2">{{customer.name}}</h1>
+        <a
+        routerLink="edit"
+            class="btn btn-sm btn-outline-success">
+            Edit Customer
+        </a>
+    </div>
+    <p><b>Customer name:</b> {{customer.name}}</p>
+    <p><b>Customer contact:</b> {{customer.contact_email}}</p>
+    <p><b>Customer's engineer:</b> {{customer.engineer_email}}</p>
+    <p><b>Total devices: </b>{{devices.length}}</p>
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap
+        align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Devices</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <a
+                    routerLink="add-device"
+                    class="btn btn-sm btn-outline-success">
+                    Add new device
+                </a>
+            </div>
+        </div>
+    </div>
+    <div
+        class="btn-group"
+        role="group"
+        aria-label="Basic example"
+        style="margin-bottom: 20px">
+        <button type="button" class="btn btn-primary">All</button>
+        <button type="button" class="btn btn-secondary" disabled>
+            Routers
+        </button>
+        <button type="button" class="btn btn-secondary" disabled>
+            Switches
+        </button>
+    </div>
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr *ngFor="let device of devices">
+                <td><div class="media-body">
+                        <a routerLink="/device/{{device._id}}/details">
+                            <h5 class="mt-0 mb-1">{{device.hostname}}</h5>
+                        </a>
+                        <div class="router_info">
+                            <i><b>Hostname:</b> Router_1_pritlicje </i><br>
+                            <i><b>IP address:</b> {{device.ip_address}} </i>  <br>
+                            <i><b>Added by</b> {{device.added_by}} </i>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-primary" routerLink="/device/{{device._id}}/edit">Edit
+                        device</a>
+                    <a class="btn btn-sm btn-success" routerLink="/device/{{device._id}}/details">Check config</a><br><br>
+                    <a class="btn btn-sm btn-danger" href="#">Delete device</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</main>

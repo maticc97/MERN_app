@@ -1,0 +1,50 @@
+<div id="tabelca" style="width: 100%;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Hostname</th>
+                <td>{{device.hostname}}</td>
+            </tr>
+            <tr>
+                <th scope="row">IP address</th>
+                <td>{{device.ip_address}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Customer</th>
+                <td>{{device.customer}}</td>
+            </tr>
+            <tr>
+                <th scope="row">CLI username</th>
+                <td>{{device.cli_username}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Actions</th>
+                <td><a class="btn btn-sm btn-primary"
+                        href="./text-annotation-token-labelling-add.html">Pull
+                        configuration</a>
+                        <a class="btn btn-sm btn-warning"
+                        routerLink="edit">Edit
+                        device</a>
+                    <a class="btn btn-sm btn-danger"
+                        routerLink="">Delete
+                        device</a>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Configuration</th>
+                <td><textarea name="career[message]" class="form-control"
+                        tabindex="1" rows="20"
+                        placeholder="Write your details" disabled>Router# show
+                        {{device.config}}
+                    </textarea>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

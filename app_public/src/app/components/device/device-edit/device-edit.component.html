@@ -1,0 +1,65 @@
+<h1>Edit Device</h1>
+<div id="tabelca" style="width: 100%;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Hostname</th>
+                <td><input
+                    value="{{device.hostname}}"
+                    type="text"
+                    class="form-control"
+                    id="hostname"
+                    aria-describedby="hostname"
+                  /></td>
+            </tr>
+            <tr>
+                <th scope="row">IP address</th>
+                <td><input
+                    value="{{device.ip_address}}"
+                    type="text"
+                    class="form-control"
+                    id="ip_address"
+                    aria-describedby="ip_address"
+                  /></td>
+            </tr>
+            <tr>
+                <th scope="row">Customer</th>
+                <td>{{device.customer}}</td>
+            </tr>
+            <tr>
+                <th scope="row">CLI username</th>
+                <td><input
+                    value="{{device.cli_username}}"
+                    type="text"
+                    class="form-control"
+                    id="cli_username"
+                    aria-describedby="cli_username"
+                  /></td>
+            </tr>
+            <tr>
+                <th scope="row">CLI password</th>
+                <td><input
+                    value="{{device.cli_password}}"
+                    type="password"
+                    class="form-control"
+                    id="cli_password"
+                    aria-describedby="cli_password"
+                  /></td>
+            </tr>
+            <tr>
+                <th scope="row">Actions</th>
+                <td><a class="btn btn-sm btn-primary"
+                        href="#">Save</a>
+                    <a class="btn btn-sm btn-danger"
+                        routerLink="..">Cancel</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

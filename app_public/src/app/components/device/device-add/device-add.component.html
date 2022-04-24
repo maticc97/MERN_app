@@ -1,0 +1,93 @@
+<h1>Add new device</h1>
+<!-- CUSTOM CONTENT -->
+<form style="width: 50%">
+  <div class="form-group">
+    <label for="name"><b>Name</b></label>
+    <input
+      required
+      type="text"
+      class="form-control"
+      id="name"
+      aria-describedby="emailHelp"
+      placeholder="Enter device's name"
+    />
+  </div>
+  <div class="form-group">
+    <label for="customer"><b>Customer</b></label>
+    <input
+      required
+      type="text"
+      class="form-control"
+      id="customer"
+      aria-describedby="emailHelp"
+      value="{{customer}}" disabled
+    />
+  </div>
+  <label style="margin-right: 10px" for="radio_type"
+    ><b>Type:</b></label
+  >
+  <div class="form-check form-check-inline">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="inlineRadioOptions"
+      id="inlineRadio1"
+      value="router"
+      checked
+    />
+    <label class="form-check-label" for="inlineRadio1">Router</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="inlineRadioOptions"
+      id="inlineRadio2"
+      value="switch"
+    />
+    <label class="form-check-label" for="inlineRadio2">Switch</label>
+  </div>
+  <div class="form-group">
+    <label for="IP address"><b>IP address</b></label>
+    <input
+      required
+      type="text"
+      class="form-control"
+      id="ip_address"
+      placeholder="Enter Contact email"
+    />
+  </div>
+  <div class="form-group">
+    <label for="Contact email"><b>CLI username</b></label>
+    <input
+      required
+      type="text"
+      class="form-control"
+      id="cli_username"
+      placeholder="CLI username"
+    />
+  </div>
+  <div class="form-group">
+    <label for="CLI password"><b>CLI password</b></label>
+    <input
+      required
+      type="password"
+      class="form-control"
+      id="cli_password"
+      placeholder="CLI password"
+    />
+  </div>
+  <div class="form-group">
+      <label for="Contact email"><b>Enable password</b></label>
+      <input
+        required
+        type="password"
+        class="form-control"
+        id="enable_password"
+        placeholder="enable_password"
+      />
+    </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <a routerLink=".." id="cancel" name="cancel" class="btn btn-danger">Cancel</a>
+</form>
