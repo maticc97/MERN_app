@@ -48,6 +48,9 @@ export class Device {
   "type": String;
   "ip_address": String
   "added_by": string
+  "cli_username": string
+  "cli_password": string
+  "customer": string
 }
 
 export class Customer {

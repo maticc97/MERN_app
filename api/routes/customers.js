@@ -25,11 +25,4 @@ router.get(
 );
 router.put('/:customerId/devices/', auth, customerController.editDevice);
 
-//delete device
-router.delete(
-  '/:customerId/devices/:deviceId/',
-  auth,
-  customerController.deleteDevice
-);
-
 module.exports = router;

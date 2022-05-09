@@ -30,6 +30,14 @@ export class APIDataService {
     const url: string = `${this.apiURL}/customers/${customerId}/devices`;
     return this.http.get<Device[]>(url).pipe(retry(1), catchError(this.handleError));
   }
+
+
+  public getDeviceDetail(deviceId: string):
+    Observable<Device> {
+    const url: string = `${this.apiURL}/device/${deviceId}/`;
+    return this.http.get<Device>(url).pipe(retry(1), catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse) {
     return throwError(
       () =>

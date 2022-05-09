@@ -3,11 +3,18 @@
         class="d-flex justify-content-between flex-wrap flex-md-nowrap
         align-items-center pb-2 mb-3">
         <h1 class="h2">{{customer.name}}</h1>
+        <div>
         <a
         routerLink="edit"
             class="btn btn-sm btn-outline-success">
             Edit Customer
         </a>
+        <a
+        routerLink="edit"
+            class="btn btn-sm btn-outline-danger">
+            Delete customer
+        </a>
+        </div>
     </div>
     <p><b>Customer name:</b> {{customer.name}}</p>
     <p><b>Customer contact:</b> {{customer.contact_email}}</p>

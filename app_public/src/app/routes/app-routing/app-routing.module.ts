@@ -17,12 +17,12 @@ import { DeviceAddComponent } from "src/app/components/device/device-add/device-
 
 const routes: Routes = [
   {
-    path: 'device/:deviceId',
+    path: 'device',
     component: MasterLayoutComponent,
     children: [
-      { path: "", component: DeviceMasterComponent },
-      { path: "edit", component: DeviceEditComponent },
-      { path: "details", component: DeviceMasterComponent }
+      { path: ":deviceId/", component: DeviceMasterComponent },
+      { path: ":deviceId/edit", component: DeviceEditComponent },
+      { path: ":deviceId/details", component: DeviceMasterComponent }
     ],
   },
   {

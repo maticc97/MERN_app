@@ -126,41 +126,6 @@ const addNewDevice = (req, res) => {
   );
 };
 
-const getDeviceInfo = (req, res) => {
-  if (logging)
-    console.log(
-      timestamp.get_timestamp(),
-      ' Requested info for device : ',
-      req.params.deviceId
-    );
-  Device.findOne({ hostname: req.params.deviceId }).then(async (deviceInfo) => {
-    if (deviceInfo) res.status(200).json(deviceInfo);
-    else return res.status(404).send();
-  });
-};
-
-const deleteDevice = (req, res) => {
-  Device.findOneAndDelete(
-    {
-      hostname: req.params.deviceId,
-      cusotmer: req.params.customerId,
-    },
-    function (err) {
-      if (err) {
-        return res.status(500).send();
-      }
-      if (logging) {
-        console.log(
-          timestamp.get_timestamp(),
-          'Deleted device : ',
-          req.params.deviceId
-        );
-      }
-      return res.status(204).send();
-    }
-  );
-};
-
 const deleteCustomer = (req, res) => {
   Customer.findOneAndRemove(
     {
