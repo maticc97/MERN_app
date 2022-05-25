@@ -18,11 +18,6 @@ router.put('/:customerId/', auth, customerController.editCustomer);
 //customer -> devices
 router.get('/:customerId/devices/', customerController.getDevices);
 router.post('/:customerId/devices/', auth, customerController.addNewDevice);
-router.get(
-  '/:customerId/devices/:deviceId/',
-  auth,
-  customerController.getDeviceInfo
-);
-router.put('/:customerId/devices/', auth, customerController.editDevice);
+
 
 module.exports = router;

@@ -38,6 +38,7 @@ export class APIDataService {
     return this.http.get<Device>(url).pipe(retry(1), catchError(this.handleError));
   }
 
+
   private handleError(error: HttpErrorResponse) {
     return throwError(
       () =>

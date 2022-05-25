@@ -106,6 +106,8 @@ const addNewDevice = (req, res) => {
   const { hostname, customer, type, ip_address, cli_username, cli_password } =
     req.body;
 
+  console.log(req.body)
+
   Device.findOne({ ip_address: ip_address, customer: customer }).then(
     async (existing_ipaddr) => {
       if (!existing_ipaddr) {
@@ -209,10 +211,8 @@ module.exports = {
   getCustomerInfo,
   addNewCustomer,
   getCustomers,
-  getDeviceInfo,
   getDevices,
   addNewDevice,
-  deleteDevice,
   deleteCustomer,
   editCustomer,
   editDevice,
