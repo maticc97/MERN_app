@@ -45,7 +45,7 @@ export class DeviceAddComponent implements OnInit {
 
     //build formData from new values
     var formData: any = new FormData();
-    formData.append('customerId', this.addDeviceForm.get('customer_id').value);
+    formData.append('customer', this.addDeviceForm.get('customer_id').value);
     formData.append('hostname', this.addDeviceForm.get('name').value);
     formData.append('type', this.addDeviceForm.get('type').value);
     formData.append('ip_address', this.addDeviceForm.get('ip_address').value);
@@ -60,7 +60,7 @@ export class DeviceAddComponent implements OnInit {
     });
 
     //post to this
-    this.http.post('http://localhost:5000/api/v1/customers/' + this.customerId + 'devices', formData).subscribe(
+    this.http.post('http://localhost:5000/api/v1/customers/' + this.customerId + '/devices', fields).subscribe(
       (response) => console.log(response),
       (error) => console.log(error)
 
