@@ -29,6 +29,7 @@ const getCustomers = (req, res) => {
 //add new customer
 const addNewCustomer = (req, res) => {
   const { name, contact_email, engineer_email } = req.body;
+  console.log(req.body)
 
   if (!name || !contact_email || !engineer_email) {
     return res.status(422).json({
