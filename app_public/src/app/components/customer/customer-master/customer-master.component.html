@@ -9,11 +9,11 @@
             class="btn btn-sm btn-outline-success">
             Edit Customer
         </a>
-        <a
-        routerLink="edit"
+        <button
+         (click)="deleteCustomer(customer.name)"
             class="btn btn-sm btn-outline-danger">
             Delete customer
-        </a>
+    </button>
         </div>
     </div>
     <p><b>Customer name:</b> {{customer.name}}</p>
@@ -55,7 +55,7 @@
                             <h5 class="mt-0 mb-1">{{device.hostname}}</h5>
                         </a>
                         <div class="router_info">
-                            <i><b>Hostname:</b> Router_1_pritlicje </i><br>
+                            <i><b>Type:</b> {{device.type}} </i><br>
                             <i><b>IP address:</b> {{device.ip_address}} </i>  <br>
                             <i><b>Added by</b> {{device.added_by}} </i>
                         </div>
@@ -65,7 +65,7 @@
                     <a class="btn btn-sm btn-primary" routerLink="/device/{{device._id}}/edit">Edit
                         device</a>
                     <a class="btn btn-sm btn-success" routerLink="/device/{{device._id}}/details">Check config</a><br><br>
-                    <a class="btn btn-sm btn-danger" href="#">Delete device</a>
+                    <button class="btn btn-sm btn-danger" (click)="deleteDevice(device._id, customer.name)">Delete device</button>
                 </td>
             </tr>
         </tbody>

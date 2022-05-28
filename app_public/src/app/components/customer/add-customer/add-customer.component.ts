@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-add-customer',
@@ -11,7 +12,7 @@ export class AddCustomerComponent implements OnInit {
 
   addCustomer_form: FormGroup
 
-  constructor(public fb: FormBuilder, private http: HttpClient) {
+  constructor(private router: Router, public fb: FormBuilder, private http: HttpClient) {
     this.addCustomer_form = this.fb.group({
       name: [''],
       contact_email: [''],
@@ -35,6 +36,10 @@ export class AddCustomerComponent implements OnInit {
       (response) => console.log(response),
       (error) => console.log(error)
     )
+
+    setTimeout(() => {                           // <<<---using ()=> syntax
+      this.router.navigate(['/customer/'])
+    }, 1000)
   }
 
 

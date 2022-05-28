@@ -19,6 +19,7 @@ export class EditCustomerComponent implements OnInit {
 
   name = new FormControl('')
 
+  
 
   constructor(private APIDataService: APIDataService, private route: ActivatedRoute, private formBuilder: FormBuilder) {
 

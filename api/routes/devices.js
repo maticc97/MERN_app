@@ -10,6 +10,6 @@ const auth = require('../middleware/auth');
 
 router.get('/:deviceId/', deviceController.getDeviceInfo);
 router.put('/:deviceId/', deviceController.editDevice);
-router.delete('/:customerId/devices/', deviceController.deleteDevice);
+router.delete('/:customerId/devices/:devideId', deviceController.deleteDevice);
 
 module.exports = router;

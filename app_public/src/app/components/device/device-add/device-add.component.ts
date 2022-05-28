@@ -2,7 +2,10 @@ import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { Router } from "express";
+
+import { Router } from "@angular/router";
+import { delay } from "rxjs";
+
 
 @Component({
   selector: 'app-device-add',
@@ -13,7 +16,7 @@ export class DeviceAddComponent implements OnInit {
 
   public customerId: string;
   addDeviceForm: FormGroup;
-  constructor(private route: ActivatedRoute, public fb: FormBuilder, private http: HttpClient) {
+  constructor(private route: ActivatedRoute, public fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.addDeviceForm = this.fb.group({
       name: [''],
       customer_id: [''],
@@ -41,6 +44,10 @@ export class DeviceAddComponent implements OnInit {
     return this.customerId
   }
 
+  reload() {
+    this.router.navigate(['/customer/' + this.customerId])
+  }
+
   onSubmit() {
 
     //build formData from new values
@@ -66,7 +73,11 @@ export class DeviceAddComponent implements OnInit {
 
 
     )
-
+    setTimeout(() => {                           // <<<---using ()=> syntax
+      this.router.navigate(['/customer/' + this.customerId])
+    }, 1000);
   }
+
+
 
 }
