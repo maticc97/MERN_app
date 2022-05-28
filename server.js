@@ -19,6 +19,11 @@ connectDB();
 
 //init middleware
 app.use(express.json({ extended: false }));
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+// in latest body-parser use like below.
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => res.send('API running'));
 

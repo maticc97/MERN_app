@@ -33,9 +33,11 @@ const getDeviceInfo = (req, res) => {
 };
 
 const deleteDevice = (req, res) => {
+
+    console.log(req.params)
     Device.findOneAndDelete(
         {
-            hostname: req.params.deviceId,
+            deviceId: req.params.deviceId,
             cusotmer: req.params.customerId,
         },
         function (err) {

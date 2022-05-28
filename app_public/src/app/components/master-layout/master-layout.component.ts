@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIDataService } from "src/app/api-data.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-master-layout',
@@ -8,7 +9,7 @@ import { APIDataService } from "src/app/api-data.service";
 })
 export class MasterLayoutComponent implements OnInit {
 
-  constructor(private APIDataService: APIDataService) { }
+  constructor(private APIDataService: APIDataService, private router: Router) { }
 
   public customers: Customer[] = [];
 
@@ -17,6 +18,7 @@ export class MasterLayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.getCustomers();
   }
 

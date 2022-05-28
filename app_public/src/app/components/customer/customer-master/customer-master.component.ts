@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { APIDataService } from "src/app/api-data.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Title } from '@angular/platform-browser';
+import { HttpClient } from "@angular/common/http";
+
+
 //import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 //import { AuthenticationService } from 'src/app/services/authentication.service';
 const PROJECT_ID_ROUTE_PARAM = 'projectId';
@@ -15,12 +18,13 @@ const customerId = '';
 })
 export class CustomerMasterComponent implements OnInit {
 
-  constructor(private APIDataService: APIDataService, private route: ActivatedRoute) { }
+  constructor(private APIDataService: APIDataService, private route: ActivatedRoute, private http: HttpClient, private router: Router) { }
 
 
 
   public param!: string
   public customer!: Customer;
+
 
   public devices: Device[] = [];
 
@@ -32,13 +36,38 @@ export class CustomerMasterComponent implements OnInit {
     this.APIDataService.getCustomerDetail(this.param).subscribe((customer) => this.customer = customer)
   }
 
+
   ngOnInit() {
     this.param = this.route.snapshot.paramMap.get("customerId") as string;
     this.getCustomerDetail()
     this.getDevices()
   }
 
+  deleteDevice(deviceId: string, customerId: string) {
+
+    if (confirm("are you sure to delete this device?"))
+      this.http.delete('http://localhost:5000/api/v1/customers/' + customerId + '/devices/' + deviceId).subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      )
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000)
+
+  }
+
+  deleteCustomer(customerId: string) {
+    if (confirm("are you sure to delete this customer and all associated devices?"))
+      this.http.delete('http://localhost:5000/api/v1/customers/' + customerId).subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      )
+    setTimeout(() => {
+      this.router.navigate(['/customer/'])
+    }, 1000)
+  }
 }
+
 
 
 export class Device {

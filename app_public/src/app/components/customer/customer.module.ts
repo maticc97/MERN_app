@@ -7,11 +7,13 @@ import { MasterLayoutComponent } from '../master-layout/master-layout.component'
 import { AppRoutingModule } from 'src/app/routes/app-routing/app-routing.module';
 import { CustomerMasterComponent } from './customer-master/customer-master.component';
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AddCustomerComponent, CustomerMasterComponent, EditCustomerComponent],
-  imports: [CommonModule, AppRoutingModule],
+  imports: [CommonModule, AppRoutingModule, ReactiveFormsModule, FormsModule],
   exports: [AddCustomerComponent, CustomerMasterComponent],
 })
-export class CustomerModule { }
+export class CustomerModule {
+
+}

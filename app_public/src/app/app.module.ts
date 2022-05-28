@@ -13,6 +13,7 @@ import { DeviceMasterComponent } from './components/device/device-master/device-
 import { DeviceEditComponent } from './components/device/device-edit/device-edit.component';
 import { DeviceAddComponent } from './components/device/device-add/device-add.component';
 import { HttpClientModule } from "@angular/common/http";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { HttpClientModule } from "@angular/common/http";
     CustomerModule,
     AuthenticationModule,
     CustomerRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [LayoutComponent],

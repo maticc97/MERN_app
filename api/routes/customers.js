@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const customerController = require('../controllers/customerController.js');
+const deviceController = require('../controllers/deviceController.js')
 const auth = require('../middleware/auth');
 
 // @route   GET api/auth
@@ -18,11 +19,7 @@ router.put('/:customerId/', auth, customerController.editCustomer);
 //customer -> devices
 router.get('/:customerId/devices/', customerController.getDevices);
 router.post('/:customerId/devices/', auth, customerController.addNewDevice);
-router.get(
-  '/:customerId/devices/:deviceId/',
-  auth,
-  customerController.getDeviceInfo
-);
-router.put('/:customerId/devices/', auth, customerController.editDevice);
+router.delete('/:customerId/devices/:deviceId', auth, deviceController.deleteDevice);
+
 
 module.exports = router;

@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+import { APIDataService } from "src/app/api-data.service";
+
+import { Router } from "@angular/router";
+import { Device } from "../../customer/customer-master/customer-master.component";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-device-master',
@@ -7,20 +13,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeviceMasterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient, private APIDataService: APIDataService, private route: ActivatedRoute, private router: Router) { }
 
-  ngOnInit(): void {
+  public param!: string;
+  public device!: Device;
+
+  private getDeviceDetail(): void {
+    this.APIDataService.getDeviceDetail(this.param).subscribe((device) => this.device = device)
   }
 
-  device = {
-    _id: "624979f53210bb4d64fc2a69",
-    timestamp: "2022-04-03T10:41:57.434Z",
-    hostname: "Device_3-SW",
-    type: "Router",
-    ip_address: "192.128.11.150",
-    customer: "Customer 1",
-    cli_username: "admin",
-    added_by: "Uporabnik_1",
+  ngOnInit(): void {
+    this.param = this.route.snapshot.paramMap.get("deviceId") as string;
+    console.log(this.param)
+    this.getDeviceDetail()
+  }
+
+
+  deleteDevice(deviceId: string, customerId: string) {
+
+    if (confirm("are you sure to delete this device?"))
+      this.http.delete('http://localhost:5000/api/v1/customers/' + customerId + '/devices/' + deviceId).subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      )
+    setTimeout(() => {                           // <<<---using ()=> syntax
+      this.router.navigate(['/customer/' + customerId])
+    }, 1000);
+  }
+
+  device_dummy = {
     config: "running-config\
     Building configuration...\
     Current configuration : 3781 bytes\
