@@ -1,22 +1,11 @@
-<h1>Edit Customer</h1>
+<h1>Edit Customer</h1><br><br>
+<h2>{{param}}</h2>
 <form [formGroup]="editDevice_form" style="width: 70%" (ngSubmit)=onSubmit()
-  id="EditDevice_form">
-  <div class="form-group">
-    <label for="Customer">Customer</label>
-    <input
-      value="{{name.value}}"
-      type="text"
-      class="form-control"
-      id="name"
-      [formControl]="name"
-      aria-describedby="emailHelp"
-      placeholder="Enter customer's name"
-      />
-  </div>
+  id="editCustomer_form">
+
   <div class="form-group">
     <label for="Contact email">Contact email</label>
     <input
-      value="{{customer.contact_email}}"
       type="email"
       class="form-control"
       formControlName="contact_email"
@@ -27,7 +16,6 @@
   <div class="form-group">
     <label for="Contact email">Engineer email</label>
     <input
-      value="{{customer.engineer_email}}"
       type="email"
       class="form-control"
       formControlName="engineer_email"
@@ -36,6 +24,6 @@
       />
   </div>
 
-  <button type="¸button" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Submit</button>
   <a routerLink=".." id="cancel" name="cancel" class="btn btn-danger">Cancel</a>
 </form>

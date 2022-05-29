@@ -60,7 +60,7 @@ export class CustomerMasterComponent implements OnInit {
     if (confirm("are you sure to delete this customer and all associated devices?"))
       this.http.delete('http://localhost:5000/api/v1/customers/' + customerId).subscribe(
         (response) => console.log(response),
-        (error) => console.log(error)
+        (error) => console.log(error),
       )
     setTimeout(() => {
       this.router.navigate(['/customer/'])

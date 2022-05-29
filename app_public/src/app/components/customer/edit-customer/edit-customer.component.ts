@@ -3,10 +3,8 @@ import { ActivatedRoute } from "@angular/router";
 import { APIDataService } from "src/app/api-data.service";
 import { Customer, Device } from "../customer-master/customer-master.component";
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
-
-
-
-
+import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-edit-customer',
@@ -17,12 +15,12 @@ export class EditCustomerComponent implements OnInit {
 
   editDevice_form: FormGroup
 
-  name = new FormControl('')
+  constructor(private router: Router, private http: HttpClient, private APIDataService: APIDataService, private route: ActivatedRoute, private formBuilder: FormBuilder) {
+    this.editDevice_form = this.formBuilder.group({
 
-  
-
-  constructor(private APIDataService: APIDataService, private route: ActivatedRoute, private formBuilder: FormBuilder) {
-
+      contact_email: [''],
+      engineer_email: [''],
+    })
   }
 
   public device!: Device;
@@ -33,31 +31,35 @@ export class EditCustomerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.editDevice_form = this.formBuilder.group({
-      name: new FormControl()
-    })
-
-    console.log(this.editDevice_form)
-
-    console.log()
-    this.param = this.route.snapshot.paramMap.get("customerId") as string;
+    this.param = this.route.snapshot.paramMap.get('customerId')
     console.log(this.param)
-    this.getCustomerDetail();
-    console.log(this.editDevice_form.controls)
-
-
   }
 
   onSubmit() {
-    const formData = new FormData();
+    var formData: any = new FormData();
+    formData.append('contact_email', this.editDevice_form.get('contact_email').value);
+    formData.append('engineer_email', this.editDevice_form.get('engineer_email').value);
 
-    console.log(formData.get.arguments)
 
+    //convert to json and preapare for node.js
+    const fields = {};
+    formData.forEach(function (value, key) {
+      fields[key] = value;
+    });
 
+    fields["name"] = this.param
 
+    this.http.put('http://localhost:5000/api/v1/customers/' + this.param, fields).subscribe(
+      (response) => console.log(response),
+      (error) => console.log(error)
+    )
+
+    setTimeout(() => {                           // <<<---using ()=> syntax
+      this.router.navigate(['/customer/'])
+    }, 1000)
   }
-
-
-
 }
+
+
+
+
