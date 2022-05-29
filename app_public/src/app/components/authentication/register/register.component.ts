@@ -12,7 +12,7 @@ export class RegisterComponent implements OnInit {
 
   addUser_form: FormGroup
 
-  constructor(public fb: FormBuilder, private http: HttpClient) {
+  constructor(public fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.addUser_form = fb.group({
       username: [''],
       email: [''],
@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     var formData: any = new FormData();
-    formData.append('username', this.addUser_form.get('usernmae').value);
+    formData.append('username', this.addUser_form.get('username').value);
     formData.append('email', this.addUser_form.get('email').value);
     formData.append('password', this.addUser_form.get('password').value);
 
@@ -36,10 +36,12 @@ export class RegisterComponent implements OnInit {
       fields[key] = value;
     });
 
-    this.http.post('http://localhost:5000/api/v1/customers/', fields).subscribe(
+    this.http.post('http://localhost:5000/api/v1/register/', fields).subscribe(
       (response) => console.log(response),
       (error) => console.log(error)
     )
-
+    setTimeout(() => {
+      this.router.navigate(['/customer/'])
+    }, 1000)
   }
 }

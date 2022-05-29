@@ -5,8 +5,10 @@ import { catchError, retry } from 'rxjs/operators';
 import { AuthenticationService } from "./_services/authentication.service";
 
 import { Device } from "./components/customer/customer-master/customer-master.component";
+import { Username } from "./components/master-layout/master-layout.component";
 
 import { Customer } from "./components/master-layout/master-layout.component";
+import { User } from "./classes/authentication";
 
 @Injectable({
   providedIn: 'root'
@@ -45,9 +47,15 @@ export class APIDataService {
   public getDeviceDetail(deviceId: string):
     Observable<Device> {
     const url: string = `${this.apiURL}/device/${deviceId}/`;
-    return this.http.get<Device>(url).pipe(retry(1), catchError(this.handleError));
+    return this.http.get<Device>(url).pipe(retry(0), catchError(this.handleError));
   }
 
+  public getUsername(): Observable<Username> {
+    var token = this.auth.getToken()
+    var headers = this.auth.setHeaders()
+    const url: string = `${this.apiURL}/username/`;
+    return this.http.get<Username>(url, { headers: { 'x-auth-token': token } }).pipe(retry(0), catchError(this.handleError));
+  }
 
   private handleError(error: HttpErrorResponse) {
     return throwError(

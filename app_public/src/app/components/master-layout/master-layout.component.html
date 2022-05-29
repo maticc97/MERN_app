@@ -24,6 +24,7 @@
         </ul>
       </div>
     </li>
+    <div style="color: white;">hello {{username.username}}</div>
     <button (click)="signOut()" class="btn btn-outline-danger my-2 my-sm-0"
       type="submit" style="color: red;">
       Sign Out
@@ -56,5 +57,10 @@
       </div>
     </nav>
     <div style="padding: 10px; width: 65%;">
+      <h1>You can add customers and new devices<br><br>
+        Total customers: {{customers.length}}<br><br>
+
+        Currently signed in user: {{username.username}}
+      </h1>
     <router-outlet></router-outlet>
     </div>

@@ -178,7 +178,13 @@ const verifyUser = async (req, res) => {
   }
 };
 
+const getUsername = async (req, res) => {
+  let username_to_return = await User.findById(req.user.id);
+  return res.status(200).json({ username: username_to_return.username })
+}
+
 module.exports = {
   addUser,
   verifyUser,
+  getUsername
 };

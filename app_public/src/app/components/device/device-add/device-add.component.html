@@ -1,6 +1,6 @@
 <h1>Add new device</h1>
 <!-- CUSTOM CONTENT -->
-<form style="width: 50%" [formGroup] = "addDeviceForm" (ngSubmit) = "onSubmit()">
+<form style="width: 50%" [formGroup] = "addDeviceForm" (ngSubmit) = "onSubmit()" ngNativeValidate>
   <div class="form-group">
     <label for="name"><b>Name</b></label>
     <input
@@ -11,6 +11,7 @@
       formControlName = "name"
       aria-describedby="emailHelp"
       placeholder="Enter device's name"
+      
     />
   </div>
   <div class="form-group">
@@ -35,7 +36,7 @@
       name="type"
       id="inlineRadio1"
       value="router"
-      checked
+      required
     />
     <label class="form-check-label" for="inlineRadio1">Router</label>
   </div>
@@ -47,6 +48,7 @@
       id="inlineRadio2"
       value="switch"
       formControlName = "type"
+      required
     />
     <label class="form-check-label" for="inlineRadio2">Switch</label>
   </div>
@@ -58,7 +60,9 @@
       type="text"
       class="form-control"
       id="ip_address"
-      placeholder="Enter Contact email"
+      placeholder="Enter devices IP address"
+      pattern="\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b"
+
     />
   </div>
   <div class="form-group">

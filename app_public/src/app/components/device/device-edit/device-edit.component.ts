@@ -4,6 +4,7 @@ import { APIDataService } from "src/app/api-data.service";
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
+import { AuthenticationService } from "src/app/_services/authentication.service";
 
 import { Device } from "../../customer/customer-master/customer-master.component";
 
@@ -17,7 +18,7 @@ export class DeviceEditComponent implements OnInit {
 
   editDevice_form: FormGroup
 
-  constructor(private APIDataService: APIDataService, private route: ActivatedRoute, private http: HttpClient, private router: Router, private fb: FormBuilder) {
+  constructor(private auth: AuthenticationService, private APIDataService: APIDataService, private route: ActivatedRoute, private http: HttpClient, private router: Router, private fb: FormBuilder) {
     this.editDevice_form = this.fb.group({
       cli_username: [''],
       cli_password: [''],
@@ -38,9 +39,9 @@ export class DeviceEditComponent implements OnInit {
 
   onSubmit(deviceCustomer: string) {
     var formData: any = new FormData();
-    formData.append('cli_username', this.editDevice_form.get('cli_').value);
-    formData.append('cli_password', this.editDevice_form.get('cli_username').value);
-
+    formData.append('cli_username', this.editDevice_form.get('cli_username').value);
+    formData.append('cli_password', this.editDevice_form.get('cli_password').value);
+    var token = this.auth.getToken()
 
     //convert to json and preapare for node.js
     const fields = {};
@@ -48,7 +49,11 @@ export class DeviceEditComponent implements OnInit {
       fields[key] = value;
     });
 
-    this.http.put('http://localhost:5000/api/v1/device/' + this.param, fields).subscribe(
+    this.http.put('http://localhost:5000/api/v1/device/' + this.param, fields, {
+      headers: {
+        'x-auth-token': token
+      }
+    }).subscribe(
       (response) => console.log(response),
       (error) => console.log(error)
     )

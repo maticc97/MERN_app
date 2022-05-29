@@ -34,12 +34,9 @@ const getDeviceInfo = (req, res) => {
 
 const deleteDevice = (req, res) => {
 
-    console.log(req.params)
-    Device.findOneAndDelete(
-        {
-            deviceId: req.params.deviceId,
-            cusotmer: req.params.customerId,
-        },
+    console.log("Izbrisi napraco")
+    Device.findByIdAndDelete(
+        req.params.deviceId,
         function (err) {
             if (err) {
                 return res.status(500).send();

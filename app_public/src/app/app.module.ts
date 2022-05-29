@@ -15,6 +15,7 @@ import { DeviceAddComponent } from './components/device/device-add/device-add.co
 
 import { HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ReactiveFormsModule } from "@angular/forms";
     DeviceMasterComponent,
     DeviceEditComponent,
     DeviceAddComponent,
+    HomepageComponent,
   ],
   imports: [
     BrowserModule,

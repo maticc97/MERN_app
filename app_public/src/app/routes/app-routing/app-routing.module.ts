@@ -17,6 +17,7 @@ import { DeviceAddComponent } from "src/app/components/device/device-add/device-
 import { AuthGuard } from "src/app/_helpers/auth.guard";
 
 const routes: Routes = [
+  { path: '', redirectTo: '/customer', pathMatch: 'full' },
   {
     path: 'device',
     component: MasterLayoutComponent,

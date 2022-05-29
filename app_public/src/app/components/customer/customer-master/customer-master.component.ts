@@ -3,6 +3,7 @@ import { APIDataService } from "src/app/api-data.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Title } from '@angular/platform-browser';
 import { HttpClient } from "@angular/common/http";
+import { AuthenticationService } from "src/app/_services/authentication.service";
 
 
 //import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
@@ -18,7 +19,7 @@ const customerId = '';
 })
 export class CustomerMasterComponent implements OnInit {
 
-  constructor(private APIDataService: APIDataService, private route: ActivatedRoute, private http: HttpClient, private router: Router) { }
+  constructor(private auth: AuthenticationService, private APIDataService: APIDataService, private route: ActivatedRoute, private http: HttpClient, private router: Router) { }
 
 
 
@@ -44,9 +45,14 @@ export class CustomerMasterComponent implements OnInit {
   }
 
   deleteDevice(deviceId: string, customerId: string) {
+    var token = this.auth.getToken()
 
     if (confirm("are you sure to delete this device?"))
-      this.http.delete('http://localhost:5000/api/v1/customers/' + customerId + '/devices/' + deviceId).subscribe(
+      this.http.delete('http://localhost:5000/api/v1/customers/' + customerId + '/devices/' + deviceId, {
+        headers: {
+          'x-auth-token': token
+        }
+      }).subscribe(
         (response) => console.log(response),
         (error) => console.log(error)
       )
@@ -57,8 +63,13 @@ export class CustomerMasterComponent implements OnInit {
   }
 
   deleteCustomer(customerId: string) {
+    var token = this.auth.getToken()
     if (confirm("are you sure to delete this customer and all associated devices?"))
-      this.http.delete('http://localhost:5000/api/v1/customers/' + customerId).subscribe(
+      this.http.delete('http://localhost:5000/api/v1/customers/' + customerId, {
+        headers: {
+          'x-auth-token': token
+        }
+      }).subscribe(
         (response) => console.log(response),
         (error) => console.log(error),
       )

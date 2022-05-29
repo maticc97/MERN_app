@@ -5,6 +5,7 @@ import { Customer, Device } from "../customer-master/customer-master.component";
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
+import { AuthenticationService } from "src/app/_services/authentication.service";
 
 @Component({
   selector: 'app-edit-customer',
@@ -15,7 +16,7 @@ export class EditCustomerComponent implements OnInit {
 
   editCustomer_form: FormGroup
 
-  constructor(private router: Router, private http: HttpClient, private APIDataService: APIDataService, private route: ActivatedRoute, private formBuilder: FormBuilder) {
+  constructor(private auth: AuthenticationService, private router: Router, private http: HttpClient, private APIDataService: APIDataService, private route: ActivatedRoute, private formBuilder: FormBuilder) {
     this.editCustomer_form = this.formBuilder.group({
 
       contact_email: [''],
@@ -26,6 +27,7 @@ export class EditCustomerComponent implements OnInit {
   public device!: Device;
   public param!: string;
   public customer!: Customer
+
   private getCustomerDetail(): void {
     this.APIDataService.getCustomerDetail(this.param).subscribe((customer) => this.customer = customer)
   }
@@ -47,9 +49,15 @@ export class EditCustomerComponent implements OnInit {
       fields[key] = value;
     });
 
+    var token = this.auth.getToken()
+
     fields["name"] = this.param
 
-    this.http.put('http://localhost:5000/api/v1/customers/' + this.param, fields).subscribe(
+    this.http.put('http://localhost:5000/api/v1/customers/' + this.param, fields, {
+      headers: {
+        'x-auth-token': token
+      }
+    }).subscribe(
       (response) => console.log(response),
       (error) => console.log(error)
     )

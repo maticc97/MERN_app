@@ -53,14 +53,13 @@ const addNewCustomer = (req, res) => {
       //if email is not taken, then check for taken username
       if (!existingCopmany) {
         //Find user that wants to add something
-        let added_by = await User.findOne({ id: req.user.id });
+        let added_by = await User.findById(req.user.id);
         //create new entry in company DB
         const customer = new Customer();
         customer.name = name;
         customer.contact_email = contact_email;
         customer.engineer_email = engineer_email;
-        customer.added_by = req.user;
-        console.log(customer.added_by)
+        customer.added_by = added_by.username;
         customer.save();
         res.status(201).json({ 'Added Customer': customer.name });
       }
@@ -109,15 +108,11 @@ const addNewDevice = (req, res) => {
   const { hostname, customer, type, ip_address, cli_username, cli_password } =
     req.body;
 
-  console.log(req.body)
-
   Device.findOne({ ip_address: ip_address, customer: customer }).then(
     async (existing_ipaddr) => {
       if (!existing_ipaddr) {
         //find signed in user from token
-        console.log("user je ==== ", req.user.id)
         let added_by = await User.findById(req.user.id);
-        console.log(added_by)
         const device = await new Device();
         device.hostname = hostname;
         device.customer = customer;
