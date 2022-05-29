@@ -20,7 +20,6 @@ const REGEX_EMAIL = new RegExp('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}');
 
 //get all customers
 const getCustomers = (req, res) => {
-  console.log("aaa")
   Customer.find({}, function (err, users) {
     if (err) res.send(500).json({ err: 'Internal server error' });
     return res.status(200).json(users);

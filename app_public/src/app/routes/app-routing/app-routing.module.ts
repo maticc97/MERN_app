@@ -15,9 +15,18 @@ import { DeviceEditComponent } from "src/app/components/device/device-edit/devic
 import { DeviceAddComponent } from "src/app/components/device/device-add/device-add.component";
 
 import { AuthGuard } from "src/app/_helpers/auth.guard";
+import { HomepageComponent } from "src/app/components/homepage/homepage.component";
 
 const routes: Routes = [
-  { path: '', redirectTo: '/customer', pathMatch: 'full' },
+  {
+    path: "home",
+    component: MasterLayoutComponent,
+    children: [
+      { path: "", component: HomepageComponent },
+    ],
+    canActivate: [AuthGuard]
+  },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'device',
     component: MasterLayoutComponent,

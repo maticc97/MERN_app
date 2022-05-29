@@ -63,7 +63,7 @@ export class EditCustomerComponent implements OnInit {
     )
 
     setTimeout(() => {                           // <<<---using ()=> syntax
-      this.router.navigate(['/customer/'])
+      this.router.navigate(['/home/'])
     }, 1000)
   }
 }
