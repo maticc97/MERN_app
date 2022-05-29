@@ -13,10 +13,10 @@ import { Router } from "@angular/router";
 })
 export class EditCustomerComponent implements OnInit {
 
-  editDevice_form: FormGroup
+  editCustomer_form: FormGroup
 
   constructor(private router: Router, private http: HttpClient, private APIDataService: APIDataService, private route: ActivatedRoute, private formBuilder: FormBuilder) {
-    this.editDevice_form = this.formBuilder.group({
+    this.editCustomer_form = this.formBuilder.group({
 
       contact_email: [''],
       engineer_email: [''],
@@ -37,8 +37,8 @@ export class EditCustomerComponent implements OnInit {
 
   onSubmit() {
     var formData: any = new FormData();
-    formData.append('contact_email', this.editDevice_form.get('contact_email').value);
-    formData.append('engineer_email', this.editDevice_form.get('engineer_email').value);
+    formData.append('contact_email', this.editCustomer_form.get('contact_email').value);
+    formData.append('engineer_email', this.editCustomer_form.get('engineer_email').value);
 
 
     //convert to json and preapare for node.js

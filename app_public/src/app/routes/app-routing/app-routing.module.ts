@@ -14,6 +14,7 @@ import { EditCustomerComponent } from "src/app/components/customer/edit-customer
 import { DeviceEditComponent } from "src/app/components/device/device-edit/device-edit.component";
 import { DeviceAddComponent } from "src/app/components/device/device-add/device-add.component";
 
+import { AuthGuard } from "src/app/_helpers/auth.guard";
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
       { path: ":deviceId/edit", component: DeviceEditComponent },
       { path: ":deviceId/details", component: DeviceMasterComponent }
     ],
+    canActivate: [AuthGuard]
   },
   {
     path: 'customer',
@@ -34,6 +36,7 @@ const routes: Routes = [
       { path: ":customerId/add-device", component: DeviceAddComponent },
       { path: ":customerId/edit", component: EditCustomerComponent }
     ],
+    canActivate: [AuthGuard]
   },
   {
     path: '',

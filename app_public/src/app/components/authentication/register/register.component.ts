@@ -29,5 +29,17 @@ export class RegisterComponent implements OnInit {
     formData.append('username', this.addUser_form.get('usernmae').value);
     formData.append('email', this.addUser_form.get('email').value);
     formData.append('password', this.addUser_form.get('password').value);
+
+    //convert to json and preapare for node.js
+    const fields = {};
+    formData.forEach(function (value, key) {
+      fields[key] = value;
+    });
+
+    this.http.post('http://localhost:5000/api/v1/customers/', fields).subscribe(
+      (response) => console.log(response),
+      (error) => console.log(error)
+    )
+
   }
 }

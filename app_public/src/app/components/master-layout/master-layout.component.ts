@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { APIDataService } from "src/app/api-data.service";
 import { Router } from "@angular/router";
+import { AuthenticationService } from "src/app/_services/authentication.service";
 
 @Component({
   selector: 'app-master-layout',
@@ -9,7 +10,7 @@ import { Router } from "@angular/router";
 })
 export class MasterLayoutComponent implements OnInit {
 
-  constructor(private APIDataService: APIDataService, private router: Router) { }
+  constructor(private APIDataService: APIDataService, private router: Router, private authService: AuthenticationService) { }
 
   public customers: Customer[] = [];
 
@@ -20,6 +21,12 @@ export class MasterLayoutComponent implements OnInit {
   ngOnInit(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.getCustomers();
+  }
+
+
+
+  signOut() {
+    this.authService.logout()
   }
 
 }

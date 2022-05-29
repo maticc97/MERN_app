@@ -20,6 +20,7 @@ const REGEX_EMAIL = new RegExp('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}');
 
 //get all customers
 const getCustomers = (req, res) => {
+  console.log("aaa")
   Customer.find({}, function (err, users) {
     if (err) res.send(500).json({ err: 'Internal server error' });
     return res.status(200).json(users);
@@ -58,7 +59,8 @@ const addNewCustomer = (req, res) => {
         customer.name = name;
         customer.contact_email = contact_email;
         customer.engineer_email = engineer_email;
-        customer.added_by = added_by.username;
+        customer.added_by = req.user;
+        console.log(customer.added_by)
         customer.save();
         res.status(201).json({ 'Added Customer': customer.name });
       }
@@ -113,7 +115,9 @@ const addNewDevice = (req, res) => {
     async (existing_ipaddr) => {
       if (!existing_ipaddr) {
         //find signed in user from token
-        let added_by = await User.findOne({ id: req.user.id });
+        console.log("user je ==== ", req.user.id)
+        let added_by = await User.findById(req.user.id);
+        console.log(added_by)
         const device = await new Device();
         device.hostname = hostname;
         device.customer = customer;

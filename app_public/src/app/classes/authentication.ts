@@ -1,5 +1,6 @@
-export class UserData {
+export class User {
+    id: number;
     username: string;
-    email: string;
-    password: string
+    password: string;
+    token?: string;
 }

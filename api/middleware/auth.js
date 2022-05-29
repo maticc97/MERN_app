@@ -4,7 +4,13 @@ const logging = config.get('debug');
 
 module.exports = function (req, res, next) {
   //Get token from header
-  const token = req.header('x-auth-token');
+  var token = req.header('x-auth-token');
+  if (token != null || undefined) {
+    token = JSON.parse(token);
+    token = token.token
+  }
+
+
   //check if not token
   if (!token) {
     return res.status(401).json({ msg: 'No token, auth denied' });
@@ -23,6 +29,7 @@ module.exports = function (req, res, next) {
 
     //we can use req.user later
     req.user = decoded.user;
+    console.log(req.user)
     if (logging) {
       console.log('User ID decoded from token ->', req.user);
     }

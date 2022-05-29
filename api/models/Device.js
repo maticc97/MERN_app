@@ -34,7 +34,6 @@ const DeviceShema = new mongoose.Schema({
   },
   added_by: {
     type: String,
-    required: true,
   },
 });
 

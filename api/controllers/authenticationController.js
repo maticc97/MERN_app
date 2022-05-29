@@ -166,15 +166,15 @@ const verifyUser = async (req, res) => {
             console.log(
               timestamp.get_timestamp(),
               'Auth OK, user ' +
-                req.body.email +
-                ' sucessfully signed in at ' +
-                timestamp.get_timestamp()
+              req.body.email +
+              ' sucessfully signed in at ' +
+              timestamp.get_timestamp()
             );
           }
           res.status(200).json({ token });
         }
       );
-    } catch (error) {}
+    } catch (error) { }
   }
 };
 

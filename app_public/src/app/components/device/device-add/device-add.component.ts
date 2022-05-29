@@ -5,6 +5,8 @@ import { ActivatedRoute } from "@angular/router";
 
 import { Router } from "@angular/router";
 import { delay } from "rxjs";
+import { HttpHeaders } from "@angular/common/http";
+import { AuthenticationService } from "src/app/_services/authentication.service";
 
 
 @Component({
@@ -16,7 +18,7 @@ export class DeviceAddComponent implements OnInit {
 
   public customerId: string;
   addDeviceForm: FormGroup;
-  constructor(private route: ActivatedRoute, public fb: FormBuilder, private http: HttpClient, private router: Router) {
+  constructor(private route: ActivatedRoute, public fb: FormBuilder, private http: HttpClient, private router: Router, private auth: AuthenticationService) {
     this.addDeviceForm = this.fb.group({
       name: [''],
       customer_id: [''],
@@ -48,6 +50,7 @@ export class DeviceAddComponent implements OnInit {
     this.router.navigate(['/customer/' + this.customerId])
   }
 
+
   onSubmit() {
 
     //build formData from new values
@@ -66,8 +69,14 @@ export class DeviceAddComponent implements OnInit {
       fields[key] = value;
     });
 
+    var token = this.auth.getToken()
+    var headers = this.auth.setHeaders()
+
+
     //post to this
-    this.http.post('http://localhost:5000/api/v1/customers/' + this.customerId + '/devices', fields).subscribe(
+
+    console.log(token)
+    this.http.post('http://localhost:5000/api/v1/customers/' + this.customerId + '/devices', fields, { headers: { 'x-auth-token': token } }).subscribe(
       (response) => console.log(response),
       (error) => console.log(error)
 
