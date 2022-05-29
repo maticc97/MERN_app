@@ -38,8 +38,8 @@ export class DeviceEditComponent implements OnInit {
 
   onSubmit(deviceCustomer: string) {
     var formData: any = new FormData();
-    formData.append('cli_username', this.editDevice_form.get('cli_username').value);
-    formData.append('cli_password', this.editDevice_form.get('cli_password').value);
+    formData.append('cli_username', this.editDevice_form.get('cli_').value);
+    formData.append('cli_password', this.editDevice_form.get('cli_username').value);
 
 
     //convert to json and preapare for node.js

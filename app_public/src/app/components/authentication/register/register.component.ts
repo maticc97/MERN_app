@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  addUser_form: FormGroup
 
-  ngOnInit(): void {
+  constructor(public fb: FormBuilder, private http: HttpClient) {
+    this.addUser_form = fb.group({
+      username: [''],
+      email: [''],
+      password: ['']
+    })
   }
 
+  ngOnInit(): void {
+
+  }
+
+  onSubmit() {
+    var formData: any = new FormData();
+    formData.append('username', this.addUser_form.get('usernmae').value);
+    formData.append('email', this.addUser_form.get('email').value);
+    formData.append('password', this.addUser_form.get('password').value);
+  }
 }
