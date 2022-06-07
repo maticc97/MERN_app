@@ -5,11 +5,6 @@ const logging = config.get('debug');
 module.exports = function (req, res, next) {
   //Get token from header
   var token = req.header('x-auth-token');
-  if (token != null || undefined) {
-    token = JSON.parse(token);
-    token = token.token
-  }
-
 
   //check if not token
   if (!token) {
