@@ -8,15 +8,15 @@ import { HttpHeaders } from "@angular/common/http";
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  private currentUserSubject: BehaviorSubject<String>;
+  public currentUser: Observable<String>;
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('x-auth-token')));
+    this.currentUserSubject = new BehaviorSubject<String>(localStorage.getItem('x-auth-token'));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue(): User {
+  public get currentUserValue(): String {
     return this.currentUserSubject.value;
   }
 
