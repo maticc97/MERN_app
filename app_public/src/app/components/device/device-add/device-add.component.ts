@@ -78,7 +78,13 @@ export class DeviceAddComponent implements OnInit {
     console.log(token)
     this.http.post('http://localhost:5000/api/v1/customers/' + this.customerId + '/devices', fields, { headers: { 'x-auth-token': token } }).subscribe(
       (response) => console.log(response),
-      (error) => console.log(error)
+      (error) => {
+        switch (error.status) {
+          case 422:
+            window.alert("Device with that IP address already added");
+            break;
+        }
+      }
 
 
     )

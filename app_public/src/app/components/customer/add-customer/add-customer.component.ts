@@ -42,7 +42,12 @@ export class AddCustomerComponent implements OnInit {
       }
     }).subscribe(
       (response) => console.log(response),
-      (error) => console.log(error)
+      (error) => {
+        switch (error.status) {
+          case 409:
+            window.alert("Company already exists");
+        } 
+      }
     )
 
     setTimeout(() => {                           // <<<---using ()=> syntax

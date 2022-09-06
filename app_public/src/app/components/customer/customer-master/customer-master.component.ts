@@ -90,7 +90,8 @@ export class Device {
   "added_by": string
   "cli_username": string
   "cli_password": string
-  "customer": string
+  "customer": string;
+  "config": string;
 }
 
 export class Customer {

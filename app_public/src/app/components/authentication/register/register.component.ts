@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
+import { AuthenticationService } from "src/app/_services/authentication.service";
 
 @Component({
   selector: 'app-register',
@@ -9,15 +10,22 @@ import { Router } from "@angular/router";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  
+  public takenEmail = false;
+  public takenUsername = false;
 
   addUser_form: FormGroup
 
-  constructor(public fb: FormBuilder, private http: HttpClient, private router: Router) {
+  constructor(public fb: FormBuilder, private http: HttpClient, private router: Router, private authenticationService: AuthenticationService) {
     this.addUser_form = fb.group({
       username: [''],
       email: [''],
       password: ['']
     })
+    if (this.authenticationService.currentUserValue != null) {
+      console.log(authenticationService.currentUserValue)
+      this.router.navigate(['/home']);
+    }
   }
 
   ngOnInit(): void {
@@ -37,11 +45,32 @@ export class RegisterComponent implements OnInit {
     });
 
     this.http.post('http://localhost:5000/api/v1/register/', fields).subscribe(
-      (response) => console.log(response),
-      (error) => console.log(error)
+      (response) => {
+        switch (response) {
+          case 409:
+            console.log("aaaaa");
+            window.alert("Hello world!");
+            break;
+        }
+      },
+      (error) => {
+        switch (error.status) {
+          case 409:
+            this.takenEmail = true;
+            window.alert("Account with this username already in use. Please choose another username")
+            break;
+          
+          case 410:
+            this.takenUsername = true;
+            window.alert("Account with this email already in use. Please choose another email")
+            break;
+        }
+      }
+      
     )
     setTimeout(() => {
       this.router.navigate(['/home/'])
     }, 1000)
+    
   }
 }

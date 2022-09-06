@@ -22,4 +22,10 @@
                 fa-sign-in"></i>Register now</button>
 
     </div>
+    <div id="bad-username" *ngIf="takenUsername" class="alert alert-danger">
+      "Account with this username already in use. Please choose another username"
+    </div>
+    <div id="bad-email" *ngIf="takenEmail" class="alert alert-danger">
+      "Account with this email already in use. Please choose another email"
+    </div>
 </form>

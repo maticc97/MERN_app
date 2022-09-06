@@ -19,6 +19,8 @@ const REQUIRED_FIELDS_ERR = 'Please provide all of the required fields -----> ';
 const REGEX_EMAIL = new RegExp('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}');
 
 
+
+
 const getDeviceInfo = (req, res) => {
     if (logging)
         console.log(
@@ -32,10 +34,18 @@ const getDeviceInfo = (req, res) => {
     });
 };
 
+const decDevices = (id) => { 
+    console.log(
+        Customer.findOneAndUpdate({ name: id }, { devices_count: 1000 }), function (error, result) {
+        console.log(result)    
+    })
+}
+
 const deleteDevice = (req, res) => {
 
     console.log("Izbrisi napraco")
-    Device.findByIdAndDelete(
+    
+     Device.findByIdAndDelete(
         req.params.deviceId,
         function (err) {
             if (err) {
@@ -48,10 +58,13 @@ const deleteDevice = (req, res) => {
                     req.params.deviceId
                 );
             }
+            decDevices(req.params.customerId)
             return res.status(204).send();
         }
     );
 };
+
+
 
 const editDevice = (req, res) => {
     Device.findOneAndUpdate(
@@ -80,6 +93,11 @@ const editDevice = (req, res) => {
         }
     );
 };
+
+
+const dummyConfig = (req, res) => {
+    return res.status(201).send({config: "config test"})
+}
 
 module.exports = {
     editDevice,

@@ -18,6 +18,14 @@ import { AuthGuard } from "src/app/_helpers/auth.guard";
 import { HomepageComponent } from "src/app/components/homepage/homepage.component";
 
 const routes: Routes = [
+    {
+    path: '',
+    component: AuthenticationLayoutComponent,
+    children: [
+      { path: 'login', component: LoginComponent, pathMatch: 'full' },
+      { path: 'register', component: RegisterComponent },
+    ],
+  },
   {
     path: "home",
     component: MasterLayoutComponent,
@@ -26,7 +34,7 @@ const routes: Routes = [
     ],
     canActivate: [AuthGuard]
   },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: 'device',
     component: MasterLayoutComponent,
@@ -48,14 +56,7 @@ const routes: Routes = [
     ],
     canActivate: [AuthGuard]
   },
-  {
-    path: '',
-    component: AuthenticationLayoutComponent,
-    children: [
-      { path: 'login', component: LoginComponent, pathMatch: 'full' },
-      { path: 'register', component: RegisterComponent },
-    ],
-  },
+
 ];
 
 @NgModule({
@@ -68,3 +69,4 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AppRoutingModule { }
+

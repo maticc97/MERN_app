@@ -120,6 +120,10 @@ const addNewDevice = (req, res) => {
         device.cli_username = cli_username;
         device.cli_password = cli_password;
         device.added_by = added_by.username;
+        device.config = "Example of stored config"
+        await Customer.findOneAndUpdate({ name: req.params.customerId }, {
+          $inc: { devices_count: 1 }
+})
         device.save();
         return res.status(201).json({ Added_device: hostname });
       } else return res.status(422).json({ msg: 'Device already in DB ' });
@@ -147,6 +151,8 @@ const deleteCustomer = (req, res) => {
     }
   );
 };
+
+
 
 const editCustomer = (req, res) => {
   Customer.findOneAndUpdate(

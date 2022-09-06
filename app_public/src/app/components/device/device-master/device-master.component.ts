@@ -48,18 +48,6 @@ export class DeviceMasterComponent implements OnInit {
     }, 1000);
   }
 
-  device_dummy = {
-    config: "running-config\
-    Building configuration...\
-    Current configuration : 3781 bytes\
-    !\
-    version 12.3\
-    no service pad\
-    service timestamps debug datetime msec\
-    service timestamps log datetime msec\
-    no service password-encryption.........\
-    "
-
-  }
+  
 
 }
