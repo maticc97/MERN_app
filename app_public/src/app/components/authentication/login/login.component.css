@@ -1,146 +1,153 @@
 /* Put custom css here, e.g. */
 
 .background {
-  background-color: #272b30;
-}
-
-.text-center {
-  text-align: left !important;
-}
-
-.form-control {
-  margin-bottom: 10px !important;
-}
-
-.custom-content {
-  color: mediumspringgreen;
-}
-
-.main-section {
-  margin: auto;
-  margin-top: 130px;
-}
-.h1 {
-  color: black;
-}
-
-.col-sm-8 {
-  /*--tu je za centrirat form-*/
-  max-width: 100% !important;
-  text-align: center !important;
-}
-
-/* Modal Content (image) */
-.modal-content {
-  margin: auto;
-  display: block;
-  width: 75%;
-  max-width: 500px;
-  margin-bottom: 10px;
-  margin-top: 20px;
-  padding: 0 10px;
-  box-shadow: 0px 0px 8px red;
-  background-color: #dedede !important;
-}
-
-.modal-content-img {
-  margin: auto;
-  display: block;
-  width: 75%;
-  max-width: 500px;
-  margin-bottom: 10px;
-  margin-top: 20px;
-  padding: 0 10px;
-  box-shadow: 0px 0px 8px rgba(11, 31, 18, 0);
-  background: transparent !important;
-}
-
-a {
-  color: black;
-}
-
-.button {
-  margin-bottom: 10px;
-  margin-top: 10px;
-
-  border-radius: 3px;
-}
-
-.button {
-  background-color: darkgrey;
-  padding: 7px 14px;
-  color: black;
-}
-
-.button:hover,
-.button:focus {
-  background-color: lightgrey !important;
-}
-
-/*fonts*/
-
-.cl1 {
-  margin-bottom: 10px;
-  font-size-adjust: inherit;
-  font-style: oblique;
-  float: left;
-}
-
-.cl2 {
-  margin-bottom: 10px;
-  font-size-adjust: inherit;
-  font-style: oblique;
-  float: right;
-}
-
-.title {
-  text-align: center;
-  font-size: 25px;
-  margin-top: 10px;
-  color: black;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-@media only screen and (max-width: 600px) {
+    background-color: #272b30;
+  }
+  
+  .custom-content {
+    color: mediumspringgreen;
+  }
+  
+  .form-control {
+    margin-bottom: 10px !important;
+  }
+  
+  .text-center {
+    text-align: left !important;
+  }
+  
+  .main-section {
+    margin: auto;
+    margin-top: 130px;
+  }
+  .h1 {
+    color: black;
+  }
+  .col-122 {
+    text-align: center !important;
+  }
+  
+  img {
+    vertical-align: middle;
+    border-style: none;
+    height: 100px;
+    width: 120px !important;
+    margin-top: -60px !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .col-sm-8 {
+    /*--tu je za centrirat form-*/
+    max-width: 100% !important;
+  }
+  
+  /* Modal Content (image) */
+  .modal-content {
+    margin: auto;
+    display: block;
+    width: 75%;
+    max-width: 500px;
+    margin-bottom: 60px;
+    margin-top: 80px;
+    padding: 0 10px;
+    background-color: #dedede !important;
+    box-shadow: 0px 0px 8px red;
+  }
+  
+  .button {
+    border-radius: 3px;
+    margin-bottom: 10px;
+    border-color: black;
+    color: black;
+    background-color: grey;
+  }
+  
+  .button:hover,
+  .button:focus {
+    background-color: red !important;
+  }
+  
+  .test {
+    text-align: left !important;
+  }
+  
+  .button {
+    background-color: darkgrey;
+  
+    text-align: center !important;
+  }
+  
+  .button:hover,
+  .button:focus {
+    background-color: lightgrey !important;
+  }
+  
+  /*fonts*/
+  
+  .cl2 {
+    margin-bottom: 10px;
+    font-size-adjust: inherit;
+    font-style: oblique;
+    float: right;
+    margin-bottom: 10px;
+  }
+  
   .title {
-    font-size: 18px;
+    text-align: center;
+  
+    font-size: 25px;
+    margin-top: 10px;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding-bottom: 50px;
   }
-  .button,
-  input,
-  optgroup,
-  select,
-  textarea {
-    font-size: 15px !important;
+  
+  .image-placeholder {
+    background-color: lightblue;
+    margin-bottom: 10px !important;
   }
-  label {
-    font-size: 14px;
-    margin-bottom: 0.2rem;
+  
+  @media only screen and (max-width: 600px) {
+    .title {
+      font-size: 18px;
+    }
+    button,
+    input,
+    optgroup,
+    select,
+    textarea {
+      font-size: 15px !important;
+    }
+    label {
+      font-size: 14px;
+      margin-bottom: 0.2rem;
+    }
+    .button {
+      font-size: 14px !important;
+    }
+    .col {
+      font-size: 12px;
+    }
   }
-  .button {
-    font-size: 14px !important;
+  
+  @media only screen and (max-width: 300px) {
+    label {
+      font-size: 10px;
+      margin-bottom: 0.2rem;
+    }
+    .button {
+      font-size: 12px !important;
+    }
+    .col {
+      font-size: 9px;
+    }
+    button,
+    input,
+    optgroup,
+    select,
+    textarea {
+      font-size: 10px !important;
+    }
   }
-  .col {
-    font-size: 12px;
-  }
-}
-
-@media only screen and (max-width: 300px) {
-  label {
-    font-size: 10px;
-    margin-bottom: 0.2rem;
-  }
-  .button {
-    font-size: 12px !important;
-  }
-  .col {
-    font-size: 9px;
-  }
-  .button,
-  input,
-  optgroup,
-  select,
-  textarea {
-    font-size: 10px !important;
-  }
-}
+  

@@ -52,7 +52,7 @@ const addNewCustomer = (req, res) => {
       //if email is not taken, then check for taken username
       if (!existingCopmany) {
         //Find user that wants to add something
-        let added_by = await User.findOne({ id: req.user.id });
+        let added_by = await User.findById(req.user.id);
         //create new entry in company DB
         const customer = new Customer();
         customer.name = name;
@@ -60,7 +60,7 @@ const addNewCustomer = (req, res) => {
         customer.engineer_email = engineer_email;
         customer.added_by = added_by.username;
         customer.save();
-        res.status(201).json({ 'Added Customer': customer.name });
+        res.status(201).json({ 'Added_Customer': customer.name });
       }
       //if email is already taken
       else {
@@ -107,13 +107,11 @@ const addNewDevice = (req, res) => {
   const { hostname, customer, type, ip_address, cli_username, cli_password } =
     req.body;
 
-  console.log(req.body)
-
   Device.findOne({ ip_address: ip_address, customer: customer }).then(
     async (existing_ipaddr) => {
       if (!existing_ipaddr) {
         //find signed in user from token
-        let added_by = await User.findOne({ id: req.user.id });
+        let added_by = await User.findById(req.user.id);
         const device = await new Device();
         device.hostname = hostname;
         device.customer = customer;
@@ -122,6 +120,9 @@ const addNewDevice = (req, res) => {
         device.cli_username = cli_username;
         device.cli_password = cli_password;
         device.added_by = added_by.username;
+        await Customer.findOneAndUpdate({ name: req.params.customerId }, {
+          $inc: { devices_count: 1 }
+})
         device.save();
         return res.status(201).json({ Added_device: hostname });
       } else return res.status(422).json({ msg: 'Device already in DB ' });
@@ -130,6 +131,7 @@ const addNewDevice = (req, res) => {
 };
 
 const deleteCustomer = (req, res) => {
+  console.log(req.params.customerId)
   Customer.findOneAndRemove(
     {
       name: req.params.customerId,
@@ -149,6 +151,8 @@ const deleteCustomer = (req, res) => {
     }
   );
 };
+
+
 
 const editCustomer = (req, res) => {
   Customer.findOneAndUpdate(

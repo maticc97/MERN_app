@@ -1,20 +1,20 @@
-<div class="title">NILConf</div>
-<form class="col-12">
+<div class="title">NetConf FE</div>
+<form class="col-12" [formGroup]="loginForm" (ngSubmit) = "onSubmit()" ngNativeValidate>
     <div class="text-center">
         <label for="fullname test">Email:</label>
-        <input type="text" id="fullname" class="form-control" placeholder="Enter your email..." />
+        <input type="text" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}" formControlName ="email" id="email" class="form-control" placeholder="Enter your email..." required/>
         <label for="password test">Password:</label>
-        <input type="password" id="password" class="form-control" placeholder="Enter your password..." />
+        <input type="password" id="password" formControlName ="password" class="form-control" placeholder="Enter your password..." required/>
     </div>
-    <a href="project-master.html" class="button btn btn-black">
+    <button type="submit" class="btn btn-secondary">
         <i class="fa fa-sign-in"> </i>
         Login
-    </a>
+    </button>
 
     <div class="container">
         <div class="row">
             <div class="col cl2">
-                <u><a href="./register-page.html">Don't have an account?</a></u>
+                <a routerLink="../register/">Don't have an account?</a>
             </div>
         </div>
     </div>

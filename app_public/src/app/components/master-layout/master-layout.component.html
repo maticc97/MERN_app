@@ -1,7 +1,7 @@
 
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><img
-      src="../../../assets/images/small-icon.ico" alt="" />NILconf</a>
+      src="../../../assets/images/test.ico" alt="" />NetConf FE</a>
 
   <!-- To add a search bar for the current functionality, uncomment the line below here, and under the navbar (around 20 rows below)-->
   <!-- <input class="form-control form-control-dark w-100 d-none d-md-block" type="text"
@@ -24,10 +24,11 @@
         </ul>
       </div>
     </li>
-    <a href="./login-page.html" class="btn btn-outline-danger my-2 my-sm-0"
+    <div style="color: white;">hello {{username.username}}</div>
+    <button (click)="signOut()" class="btn btn-outline-danger my-2 my-sm-0"
       type="submit" style="color: red;">
       Sign Out
-    </a>
+    </button>
   </ul>
 
   <!-- <input class="form-control form-control-dark w-100 d-block d-md-none" type="text"
@@ -56,5 +57,6 @@
       </div>
     </nav>
     <div style="padding: 10px; width: 65%;">
+     
     <router-outlet></router-outlet>
     </div>

@@ -8,8 +8,10 @@ const auth = require('../middleware/auth');
 // @desc    Test route
 // @access  Public
 
-router.get('/:deviceId/', deviceController.getDeviceInfo);
-router.put('/:deviceId/', deviceController.editDevice);
-router.delete('/:customerId/devices/:devideId', deviceController.deleteDevice);
+
+console.log("aaa");
+router.get('/:deviceId/', auth,  deviceController.getDeviceInfo);
+router.put('/:deviceId/', auth,  deviceController.editDevice);
+router.delete('/:deviceId', auth, deviceController.deleteDevice);
 
 module.exports = router;

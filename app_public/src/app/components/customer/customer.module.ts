@@ -12,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [AddCustomerComponent, CustomerMasterComponent, EditCustomerComponent],
   imports: [CommonModule, AppRoutingModule, ReactiveFormsModule, FormsModule],
-  exports: [AddCustomerComponent, CustomerMasterComponent],
+  exports: [AddCustomerComponent, CustomerMasterComponent, EditCustomerComponent],
 })
 export class CustomerModule {
 

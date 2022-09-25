@@ -6,7 +6,7 @@
         <div>
         <a
         routerLink="edit"
-            class="btn btn-sm btn-outline-success">
+            class="btn btn-sm btn btn-sm btn-primary">
             Edit Customer
         </a>
         <button
@@ -51,7 +51,7 @@
         <tbody>
             <tr *ngFor="let device of devices">
                 <td><div class="media-body">
-                        <a routerLink="/device/{{device._id}}/details">
+                        <a routerLink="/device/{{device._id}}">
                             <h5 class="mt-0 mb-1">{{device.hostname}}</h5>
                         </a>
                         <div class="router_info">

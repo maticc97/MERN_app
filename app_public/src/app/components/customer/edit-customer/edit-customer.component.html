@@ -1,7 +1,7 @@
 <h1>Edit Customer</h1><br><br>
 <h2>{{param}}</h2>
-<form [formGroup]="editDevice_form" style="width: 70%" (ngSubmit)=onSubmit()
-  id="editCustomer_form">
+<form [formGroup]="editCustomer_form" style="width: 70%" (ngSubmit)=onSubmit()
+  id="editCustomer_form" ngNativeValidate>
 
   <div class="form-group">
     <label for="Contact email">Contact email</label>
@@ -11,6 +11,7 @@
       formControlName="contact_email"
       id="contact_email"
       placeholder="Enter Contact email"
+      required
       />
   </div>
   <div class="form-group">
@@ -21,6 +22,7 @@
       formControlName="engineer_email"
       id="engineer_email"
       placeholder="Enter Engineer's email"
+      required
       />
   </div>
 

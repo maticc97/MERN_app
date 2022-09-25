@@ -1,7 +1,7 @@
 <h1>Edit Device</h1><br><br>
 <h3>{{device.customer}} | {{device.hostname}} ({{device.ip_address}})</h3>
-    <form [formGroup]="editDevice_form" style="width: 70%"
-    id="EditDevice_form">
+    <form [formGroup]="editDevice_form" style="width: 70%" 
+    id="EditDevice_form" ngNativeValidate (ngSubmit) = "onSubmit(device.customer)">
   
     <div class="form-group">
       <label for="cli_username">CLI username</label>
@@ -11,6 +11,7 @@
         formControlName="cli_username"
         id="CLI username"
         placeholder="Enter new CLI username"
+        required
         />
     </div>
     <div class="form-group">
@@ -21,8 +22,9 @@
         formControlName="cli_password"
         id="cli_password"
         placeholder="Enter new CLI password"
+        required
         />
     </div>
-    <button type="submit" class="btn btn-primary" (click)="onSubmit(device.customer)">Submit</button>
-    <a routerLink=".." id="cancel" name="cancel" class="btn btn-danger">Cancel</a>
+    <button type="submit" class="btn btn-primary" >Submit</button>
+    <a routerLink="/customer/{{device.customer}}" id="cancel" name="cancel" class="btn btn-danger">Cancel</a>
     </form>

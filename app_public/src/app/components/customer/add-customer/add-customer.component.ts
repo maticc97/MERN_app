@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
+import { AuthenticationService } from "src/app/_services/authentication.service";
 
 @Component({
   selector: 'app-add-customer',
@@ -12,7 +13,7 @@ export class AddCustomerComponent implements OnInit {
 
   addCustomer_form: FormGroup
 
-  constructor(private router: Router, public fb: FormBuilder, private http: HttpClient) {
+  constructor(private router: Router, public fb: FormBuilder, private http: HttpClient, private auth: AuthenticationService) {
     this.addCustomer_form = this.fb.group({
       name: [''],
       contact_email: [''],
@@ -32,13 +33,25 @@ export class AddCustomerComponent implements OnInit {
       fields[key] = value;
     });
 
-    this.http.post('http://localhost:5000/api/v1/customers/', fields).subscribe(
+    var token = this.auth.getToken()
+
+
+    this.http.post('http://localhost:5000/api/v1/customers/', fields, {
+      headers: {
+        'x-auth-token': token
+      }
+    }).subscribe(
       (response) => console.log(response),
-      (error) => console.log(error)
+      (error) => {
+        switch (error.status) {
+          case 409:
+            window.alert("Company already exists");
+        } 
+      }
     )
 
     setTimeout(() => {                           // <<<---using ()=> syntax
-      this.router.navigate(['/customer/'])
+      this.router.navigate(['/home/'])
     }, 1000)
   }
 

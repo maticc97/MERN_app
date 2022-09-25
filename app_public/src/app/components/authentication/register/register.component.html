@@ -1,19 +1,31 @@
-<div class="title">Create account on NILConf</div>
+<div class="title">Create account on NetConf FE</div>
 
-<form class="col-12">
+<form class="col-12" [formGroup] = "addUser_form" ngNativeValidate (ngSubmit)="onSubmit()">
     <div class="text-center">
         <label for="username test">Username:</label>
-        <input type="text" id="username" class="form-control" placeholder="Enter a username..." />
+        <input type="text" id="username" class="form-control" placeholder="Enter
+            a username..." required minlength="4" formControlName ="username" />
         <label for="Email test">Email address:</label>
-        <input type="email" id="Email" class="form-control" placeholder="Enter your email address..." />
-        <label for="password test">Password:</label>
-        <input type="password" id="password" class="form-control" placeholder="Enter your password..." />
-        <label for="password test">Confirm password:</label>
-        <input type="password" id="password" class="form-control" placeholder="Enter your password again..." />
+        <input type="email" id="email" name="email" formControlName="email" class="form-control"
+            pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}" placeholder="Enter your email address..."
+            required minlength="4" />
+        <label for="password">Password:
+            <input type="password" id="password" name="password" formControlName="password" class="form-control"
+                placeholder="Enter your password..." required title="Must
+                contain at least one number and one uppercase and lowercase
+                letter,
+                and at least 8 or more characters" />
+        </label>
     </div>
-    <div class="container" style="text-align: center">
-        <a href="./login-page.html" class="button btn btn-black"><i class="fa fa-sign-in"></i>
-            Register now
-        </a>
+    <div class="container" style="text-align: left">
+        <button type="submit" class="btn btn-secondary"><i class="fa
+                fa-sign-in"></i>Register now</button>
+
+    </div>
+    <div id="bad-username" *ngIf="takenUsername" class="alert alert-danger">
+      "Account with this username already in use. Please choose another username"
+    </div>
+    <div id="bad-email" *ngIf="takenEmail" class="alert alert-danger">
+      "Account with this email already in use. Please choose another email"
     </div>
 </form>

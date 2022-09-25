@@ -111,6 +111,7 @@ const addUser = (req, res) => {
 
 //verify user to login
 const verifyUser = async (req, res) => {
+  console.log(req.body)
   if (logging) {
     console.log(
       timestamp.get_timestamp(),
@@ -166,19 +167,25 @@ const verifyUser = async (req, res) => {
             console.log(
               timestamp.get_timestamp(),
               'Auth OK, user ' +
-                req.body.email +
-                ' sucessfully signed in at ' +
-                timestamp.get_timestamp()
+              req.body.email +
+              ' sucessfully signed in at ' +
+              timestamp.get_timestamp()
             );
           }
           res.status(200).json({ token });
         }
       );
-    } catch (error) {}
+    } catch (error) { }
   }
 };
+
+const getUsername = async (req, res) => {
+  let username_to_return = await User.findById(req.user.id);
+  return res.status(200).json({ username: username_to_return.username })
+}
 
 module.exports = {
   addUser,
   verifyUser,
+  getUsername
 };

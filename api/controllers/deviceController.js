@@ -19,7 +19,10 @@ const REQUIRED_FIELDS_ERR = 'Please provide all of the required fields -----> ';
 const REGEX_EMAIL = new RegExp('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}');
 
 
+
+
 const getDeviceInfo = (req, res) => {
+    console.log("aaaa");
     if (logging)
         console.log(
             timestamp.get_timestamp(),
@@ -27,19 +30,25 @@ const getDeviceInfo = (req, res) => {
             req.params
         );
     Device.findOne({ _id: req.params.deviceId }).then(async (deviceInfo) => {
-        if (deviceInfo) res.status(200).json(deviceInfo);
+        if (deviceInfo) res.status(200).json(deviceInfo)
         else return res.status(404).send();
     });
 };
 
+const decDevices = (id) => { 
+    const filter = { name: id }
+    const update = {contact_email: "rteasdasd@asdas.so"}
+    Customer.findOneAndUpdate(filter, update, { upsert: true }, function (err, result) {
+        console.log(result)
+    })
+}
+
 const deleteDevice = (req, res) => {
 
-    console.log(req.params)
-    Device.findOneAndDelete(
-        {
-            deviceId: req.params.deviceId,
-            cusotmer: req.params.customerId,
-        },
+    console.log(req.params.deviceId)
+    
+     Device.findByIdAndDelete(
+        req.params.deviceId,
         function (err) {
             if (err) {
                 return res.status(500).send();
@@ -55,6 +64,8 @@ const deleteDevice = (req, res) => {
         }
     );
 };
+
+
 
 const editDevice = (req, res) => {
     Device.findOneAndUpdate(
@@ -83,6 +94,11 @@ const editDevice = (req, res) => {
         }
     );
 };
+
+
+const dummyConfig = (req, res) => {
+    return res.status(201).send({config: "config test"})
+}
 
 module.exports = {
     editDevice,

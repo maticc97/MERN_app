@@ -14,8 +14,27 @@ import { EditCustomerComponent } from "src/app/components/customer/edit-customer
 import { DeviceEditComponent } from "src/app/components/device/device-edit/device-edit.component";
 import { DeviceAddComponent } from "src/app/components/device/device-add/device-add.component";
 
+import { AuthGuard } from "src/app/_helpers/auth.guard";
+import { HomepageComponent } from "src/app/components/homepage/homepage.component";
 
 const routes: Routes = [
+    {
+    path: '',
+    component: AuthenticationLayoutComponent,
+    children: [
+      { path: 'login', component: LoginComponent, pathMatch: 'full' },
+      { path: 'register', component: RegisterComponent },
+    ],
+  },
+  {
+    path: "home",
+    component: MasterLayoutComponent,
+    children: [
+      { path: "", component: HomepageComponent },
+    ],
+    canActivate: [AuthGuard]
+  },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: 'device',
     component: MasterLayoutComponent,
@@ -24,6 +43,7 @@ const routes: Routes = [
       { path: ":deviceId/edit", component: DeviceEditComponent },
       { path: ":deviceId/details", component: DeviceMasterComponent }
     ],
+    canActivate: [AuthGuard]
   },
   {
     path: 'customer',
@@ -34,15 +54,9 @@ const routes: Routes = [
       { path: ":customerId/add-device", component: DeviceAddComponent },
       { path: ":customerId/edit", component: EditCustomerComponent }
     ],
+    canActivate: [AuthGuard]
   },
-  {
-    path: '',
-    component: AuthenticationLayoutComponent,
-    children: [
-      { path: 'login', component: LoginComponent, pathMatch: 'full' },
-      { path: 'register', component: RegisterComponent },
-    ],
-  },
+
 ];
 
 @NgModule({
@@ -55,3 +69,4 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AppRoutingModule { }
+

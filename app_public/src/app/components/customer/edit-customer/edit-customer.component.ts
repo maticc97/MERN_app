@@ -5,6 +5,7 @@ import { Customer, Device } from "../customer-master/customer-master.component";
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
+import { AuthenticationService } from "src/app/_services/authentication.service";
 
 @Component({
   selector: 'app-edit-customer',
@@ -13,10 +14,10 @@ import { Router } from "@angular/router";
 })
 export class EditCustomerComponent implements OnInit {
 
-  editDevice_form: FormGroup
+  editCustomer_form: FormGroup
 
-  constructor(private router: Router, private http: HttpClient, private APIDataService: APIDataService, private route: ActivatedRoute, private formBuilder: FormBuilder) {
-    this.editDevice_form = this.formBuilder.group({
+  constructor(private auth: AuthenticationService, private router: Router, private http: HttpClient, private APIDataService: APIDataService, private route: ActivatedRoute, private formBuilder: FormBuilder) {
+    this.editCustomer_form = this.formBuilder.group({
 
       contact_email: [''],
       engineer_email: [''],
@@ -26,6 +27,7 @@ export class EditCustomerComponent implements OnInit {
   public device!: Device;
   public param!: string;
   public customer!: Customer
+
   private getCustomerDetail(): void {
     this.APIDataService.getCustomerDetail(this.param).subscribe((customer) => this.customer = customer)
   }
@@ -37,8 +39,8 @@ export class EditCustomerComponent implements OnInit {
 
   onSubmit() {
     var formData: any = new FormData();
-    formData.append('contact_email', this.editDevice_form.get('contact_email').value);
-    formData.append('engineer_email', this.editDevice_form.get('engineer_email').value);
+    formData.append('contact_email', this.editCustomer_form.get('contact_email').value);
+    formData.append('engineer_email', this.editCustomer_form.get('engineer_email').value);
 
 
     //convert to json and preapare for node.js
@@ -47,15 +49,21 @@ export class EditCustomerComponent implements OnInit {
       fields[key] = value;
     });
 
+    var token = this.auth.getToken()
+
     fields["name"] = this.param
 
-    this.http.put('http://localhost:5000/api/v1/customers/' + this.param, fields).subscribe(
+    this.http.put('http://localhost:5000/api/v1/customers/' + this.param, fields, {
+      headers: {
+        'x-auth-token': token
+      }
+    }).subscribe(
       (response) => console.log(response),
       (error) => console.log(error)
     )
 
     setTimeout(() => {                           // <<<---using ()=> syntax
-      this.router.navigate(['/customer/'])
+      this.router.navigate(['/home/'])
     }, 1000)
   }
 }

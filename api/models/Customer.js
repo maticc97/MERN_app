@@ -20,6 +20,10 @@ const CustomerSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  devices_count: {
+    type: Number, 
+    default:0    
+  },
   added_by: {
     type: String,
     required: true,
