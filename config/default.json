@@ -1,5 +1,5 @@
 {
   "mongoURI": "mongodb+srv://matic123:matic123@devconnector.l8o4a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
   "jwtSecret": "mysecrettoken",
-  "debug": "true"
+  "debug": false
 }

@@ -1,19 +1,19 @@
-<main role="main" >
+<main role="main">
     <div
         class="d-flex justify-content-between flex-wrap flex-md-nowrap
         align-items-center pb-2 mb-3">
         <h1 class="h2">{{customer.name}}</h1>
         <div>
-        <a
-        routerLink="edit"
-            class="btn btn-sm btn btn-sm btn-primary">
-            Edit Customer
-        </a>
-        <button
-         (click)="deleteCustomer(customer.name)"
-            class="btn btn-sm btn-outline-danger">
-            Delete customer
-    </button>
+            <a
+                routerLink="edit"
+                class="btn btn-sm btn btn-sm btn-primary">
+                Edit Customer
+            </a>
+            <button
+                (click)="deleteCustomer(customer.name)"
+                class="btn btn-sm btn-outline-danger">
+                Delete customer
+            </button>
         </div>
     </div>
     <p><b>Customer name:</b> {{customer.name}}</p>
@@ -51,20 +51,26 @@
         <tbody>
             <tr *ngFor="let device of devices">
                 <td><div class="media-body">
-                        <a routerLink="/device/{{device._id}}">
+                        <a routerLink="/device/{{device._id}}/details">
                             <h5 class="mt-0 mb-1">{{device.hostname}}</h5>
                         </a>
                         <div class="router_info">
                             <i><b>Type:</b> {{device.type}} </i><br>
-                            <i><b>IP address:</b> {{device.ip_address}} </i>  <br>
+                            <i><b>IP address:</b> {{device.ip_address}} </i>
+                            <br>
                             <i><b>Added by</b> {{device.added_by}} </i>
                         </div>
                     </div>
                 </td>
                 <td>
-                    <a class="btn btn-sm btn-primary" routerLink="/device/{{device._id}}/edit">Edit credientials</a>
-                    <a class="btn btn-sm btn-success" routerLink="/device/{{device._id}}/details">Check config</a><br><br>
-                    <button class="btn btn-sm btn-danger" (click)="deleteDevice(device._id, customer.name)">Delete device</button>
+                    <a class="btn btn-sm btn-primary"
+                        routerLink="/device/{{device._id}}/edit">Edit
+                        credientials</a>
+                    <a class="btn btn-sm btn-success"
+                        routerLink="/device/{{device._id}}/details">Check config</a><br><br>
+                    <button class="btn btn-sm btn-danger"
+                        (click)="deleteDevice(device._id, customer.name)">Delete
+                        device</button>
                 </td>
             </tr>
         </tbody>

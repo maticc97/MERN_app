@@ -160,7 +160,7 @@ const verifyUser = async (req, res) => {
         payload,
         //secret for hashing payload
         config.get('jwtSecret'),
-        { expiresIn: 360000 },
+        { expiresIn: "2 days" },
         (err, token) => {
           if (err) throw err;
           if (logging) {

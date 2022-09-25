@@ -20,16 +20,16 @@ const REGEX_EMAIL = new RegExp('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}');
 
 //get all customers
 const getCustomers = (req, res) => {
-  Customer.find({}, function (err, users) {
+  if (logging) console.log(timestamp.get_timestamp(), "All customer requested by user " + req.user.id);
+  Customer.find({}, function (err, customers) {
     if (err) res.send(500).json({ err: 'Internal server error' });
-    return res.status(200).json(users);
+    return res.status(200).json(customers);
   });
 };
 
 //add new customer
 const addNewCustomer = (req, res) => {
   const { name, contact_email, engineer_email } = req.body;
-  console.log(req.body)
 
   if (!name || !contact_email || !engineer_email) {
     return res.status(422).json({
@@ -60,6 +60,9 @@ const addNewCustomer = (req, res) => {
         customer.engineer_email = engineer_email;
         customer.added_by = added_by.username;
         customer.save();
+        if (logging) {
+          console.log(timestamp.get_timestamp(), "Added cuistomer: ", customer.name);
+        }
         res.status(201).json({ 'Added_Customer': customer.name });
       }
       //if email is already taken
@@ -99,6 +102,7 @@ const getCustomerInfo = (req, res) => {
 const getDevices = (req, res) => {
   Device.find({ customer: req.params.customerId }, function (err, devices) {
     if (err) res.send(500).json({ err: 'Internal server error' });
+    if (logging) console.log(timestamp.get_timestamp(), "All devices requested for customer " + req.params.customerId + " by user " + req.user.id);
     return res.status(200).json(devices);
   });
 };
@@ -122,16 +126,24 @@ const addNewDevice = (req, res) => {
         device.added_by = added_by.username;
         await Customer.findOneAndUpdate({ name: req.params.customerId }, {
           $inc: { devices_count: 1 }
-})
+        })
         device.save();
+        if (logging) {
+          console.log("Device added: ", hostname)
+        }
         return res.status(201).json({ Added_device: hostname });
-      } else return res.status(422).json({ msg: 'Device already in DB ' });
+      } else {
+        if (logging) {
+          console.log(timestamp.get_timestamp(), "Device already in DB");
+        }
+        return res.status(422).json({ msg: 'Device already in DB ' });
+      }
     }
   );
 };
 
 const deleteCustomer = (req, res) => {
-  console.log(req.params.customerId)
+  console.log(req.params.customerId )
   Customer.findOneAndRemove(
     {
       name: req.params.customerId,
