@@ -24,10 +24,6 @@ const DeviceShema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  config: {
-    type: String,
-    required: false,
-  },
   timestamp: {
     type: Date,
     default: Date.now,

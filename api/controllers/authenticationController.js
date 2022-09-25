@@ -111,6 +111,7 @@ const addUser = (req, res) => {
 
 //verify user to login
 const verifyUser = async (req, res) => {
+  console.log(req.body)
   if (logging) {
     console.log(
       timestamp.get_timestamp(),

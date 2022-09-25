@@ -60,7 +60,7 @@ const addNewCustomer = (req, res) => {
         customer.engineer_email = engineer_email;
         customer.added_by = added_by.username;
         customer.save();
-        res.status(201).json({ 'Added Customer': customer.name });
+        res.status(201).json({ 'Added_Customer': customer.name });
       }
       //if email is already taken
       else {
@@ -120,7 +120,6 @@ const addNewDevice = (req, res) => {
         device.cli_username = cli_username;
         device.cli_password = cli_password;
         device.added_by = added_by.username;
-        device.config = "Example of stored config"
         await Customer.findOneAndUpdate({ name: req.params.customerId }, {
           $inc: { devices_count: 1 }
 })
@@ -132,6 +131,7 @@ const addNewDevice = (req, res) => {
 };
 
 const deleteCustomer = (req, res) => {
+  console.log(req.params.customerId)
   Customer.findOneAndRemove(
     {
       name: req.params.customerId,

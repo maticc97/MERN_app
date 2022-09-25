@@ -46,8 +46,9 @@ export class APIDataService {
 
   public getDeviceDetail(deviceId: string):
     Observable<Device> {
+    var token = this.auth.getToken();
     const url: string = `${this.apiURL}/device/${deviceId}/`;
-    return this.http.get<Device>(url).pipe(retry(0), catchError(this.handleError));
+    return this.http.get<Device>(url, { headers: { 'x-auth-token': token } }).pipe(retry(0), catchError(this.handleError));
   }
 
   public getUsername(): Observable<Username> {

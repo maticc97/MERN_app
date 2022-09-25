@@ -48,7 +48,7 @@ export class CustomerMasterComponent implements OnInit {
     var token = this.auth.getToken()
 
     if (confirm("are you sure to delete this device?"))
-      this.http.delete('http://localhost:5000/api/v1/customers/' + customerId + '/devices/' + deviceId, {
+      this.http.delete('http://localhost:5000/api/v1/device/' + deviceId, {
         headers: {
           'x-auth-token': token
         }
