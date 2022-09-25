@@ -35,14 +35,6 @@ const getDeviceInfo = (req, res) => {
     });
 };
 
-const decDevices = (id) => { 
-    const filter = { name: id }
-    const update = {contact_email: "rteasdasd@asdas.so"}
-    Customer.findOneAndUpdate(filter, update, { upsert: true }, function (err, result) {
-        console.log(result)
-    })
-}
-
 const deleteDevice = (req, res) => {
 
     console.log(req.params.deviceId)
