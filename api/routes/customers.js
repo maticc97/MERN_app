@@ -5,10 +5,6 @@ const customerController = require('../controllers/customerController.js');
 const deviceController = require('../controllers/deviceController.js')
 const auth = require('../middleware/auth');
 
-// @route   GET api/auth
-// @desc    Test route
-// @access  Public
-
 //customers
 router.get('/', auth, customerController.getCustomers); //add auth for later use. 
 router.post('/', auth, customerController.addNewCustomer); //add auth for later use.

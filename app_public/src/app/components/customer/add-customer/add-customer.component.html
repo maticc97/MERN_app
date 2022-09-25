@@ -1,24 +1,24 @@
 <h1>Add new customer</h1>
 <!-- CUSTOM CONTENT -->
-<form style="width: 80%" [formGroup] = "addCustomer_form" (ngSubmit)="onSubmit()">
+<form style="width: 80%" [formGroup]="addCustomer_form" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label for="Customer">Customer</label>
         <input type="text" class="form-control" id="name"
             aria-describedby="emailHelp"
             placeholder="Enter customer's name"
-            formControlName = "name" />
+            formControlName="name" />
     </div>
     <div class="form-group">
         <label for="Contact email">Contact email</label>
         <input type="email" class="form-control" id="contact_email"
             placeholder="Enter Contact email"
-            formControlName = "contact_email" />
+            formControlName="contact_email" />
     </div>
     <div class="form-group">
         <label for="Contact email">Engineer email</label>
         <input type="email" class="form-control" id="engineer_email"
             placeholder="Enter Engineer's email"
-            formControlName = "engineer_email" />
+            formControlName="engineer_email" />
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>

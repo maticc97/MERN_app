@@ -27,7 +27,7 @@ module.exports = function (req, res, next) {
     if (logging) {
       console.log('User ID decoded from token ->', req.user);
     }
-    next(); //ext is used to pass control to the next middleware function
+    next(); //next is used to pass control to the next middleware function
   } catch {
     res.status(401).json({ mes: 'Token not valid' });
   }

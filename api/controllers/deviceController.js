@@ -22,7 +22,6 @@ const REGEX_EMAIL = new RegExp('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}');
 
 
 const getDeviceInfo = (req, res) => {
-    console.log("aaaa");
     if (logging)
         console.log(
             timestamp.get_timestamp(),
