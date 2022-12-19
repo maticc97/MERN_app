@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Title } from '@angular/platform-browser';
 import { HttpClient } from "@angular/common/http";
 import { AuthenticationService } from "src/app/_services/authentication.service";
+import { environment } from 'src/environments/environment';
 
 
 //import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
@@ -48,7 +49,7 @@ export class CustomerMasterComponent implements OnInit {
     var token = this.auth.getToken()
 
     if (confirm("are you sure to delete this device?"))
-      this.http.delete('http://localhost:5000/api/v1/device/' + deviceId, {
+      this.http.delete(environment.apiUrl + 'device/' + deviceId, {
         headers: {
           'x-auth-token': token
         }
@@ -65,7 +66,7 @@ export class CustomerMasterComponent implements OnInit {
   deleteCustomer(customerId: string) {
     var token = this.auth.getToken()
     if (confirm("are you sure to delete this customer and all associated devices?"))
-      this.http.delete('http://localhost:5000/api/v1/customers/' + customerId, {
+      this.http.delete(environment.apiUrl + 'customers/' + customerId, {
         headers: {
           'x-auth-token': token
         }

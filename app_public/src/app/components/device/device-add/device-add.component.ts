@@ -7,6 +7,7 @@ import { Router } from "@angular/router";
 import { delay } from "rxjs";
 import { HttpHeaders } from "@angular/common/http";
 import { AuthenticationService } from "src/app/_services/authentication.service";
+import { environment } from "src/environments/environment";
 
 
 @Component({
@@ -76,7 +77,7 @@ export class DeviceAddComponent implements OnInit {
     //post to this
 
     console.log(token)
-    this.http.post('http://localhost:5000/api/v1/customers/' + this.customerId + '/devices', fields, { headers: { 'x-auth-token': token } }).subscribe(
+    this.http.post(environment.apiUrl + 'customers/' + this.customerId + '/devices', fields, { headers: { 'x-auth-token': token } }).subscribe(
       (response) => console.log(response),
       (error) => {
         switch (error.status) {

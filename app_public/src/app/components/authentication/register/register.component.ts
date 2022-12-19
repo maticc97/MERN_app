@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { AuthenticationService } from "src/app/_services/authentication.service";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -44,7 +45,7 @@ export class RegisterComponent implements OnInit {
       fields[key] = value;
     });
 
-    this.http.post('http://localhost:5000/api/v1/register/', fields).subscribe(
+    this.http.post(environment.apiUrl + 'register/', fields).subscribe(
       (response) => {
         switch (response) {
           case 409:

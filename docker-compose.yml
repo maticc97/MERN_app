@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+    mongodb:
+        image: mongo:latest
+        container_name: mern_mongodb
+        restart: always
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: matic
+            MONGO_INITDB_ROOT_PASSWORD: matic987
+            MONGO_INITDB_DATABASE: customers
+        volumes:
+            - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+    mern_app:
+        image: mern_app:latest
+        container_name: mern_app
+        ports:
+          - 80:80
+        networks:
+          mern:
+        restart: always
+
+    mern_api:
+        image: mern_api:latest
+        container_name: mern_api
+        networks:
+          mern:
+        restart: always
+
+networks:
+  mern:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"

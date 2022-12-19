@@ -7,6 +7,7 @@ import { Router } from "@angular/router";
 import { AuthenticationService } from "src/app/_services/authentication.service";
 
 import { Device } from "../../customer/customer-master/customer-master.component";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-device-edit',
@@ -49,7 +50,7 @@ export class DeviceEditComponent implements OnInit {
       fields[key] = value;
     });
 
-    this.http.put('http://localhost:5000/api/v1/device/' + this.param, fields, {
+    this.http.put(environment.apiUrl + 'device/' + this.param, fields, {
       headers: {
         'x-auth-token': token
       }

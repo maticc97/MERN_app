@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { Device } from "../../customer/customer-master/customer-master.component";
 import { HttpClient } from "@angular/common/http";
 import { AuthenticationService } from "src/app/_services/authentication.service";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-device-master',
@@ -35,7 +36,7 @@ export class DeviceMasterComponent implements OnInit {
     var token = this.auth.getToken()
 
     if (confirm("are you sure to delete this device?"))
-      this.http.delete('http://localhost:5000/api/v1/customers/' + customerId + '/devices/' + deviceId, {
+      this.http.delete(environment.apiUrl + 'customers/' + customerId + '/devices/' + deviceId, {
         headers: {
           'x-auth-token': token
         }

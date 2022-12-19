@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { AuthenticationService } from "src/app/_services/authentication.service";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-customer',
@@ -36,7 +37,7 @@ export class AddCustomerComponent implements OnInit {
     var token = this.auth.getToken()
 
 
-    this.http.post('http://localhost:5000/api/v1/customers/', fields, {
+    this.http.post(environment.apiUrl + 'customers/', fields, {
       headers: {
         'x-auth-token': token
       }

@@ -6,6 +6,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { AuthenticationService } from "src/app/_services/authentication.service";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit-customer',
@@ -53,7 +54,7 @@ export class EditCustomerComponent implements OnInit {
 
     fields["name"] = this.param
 
-    this.http.put('http://localhost:5000/api/v1/customers/' + this.param, fields, {
+    this.http.put(environment.apiUrl + 'customers/' + this.param, fields, {
       headers: {
         'x-auth-token': token
       }

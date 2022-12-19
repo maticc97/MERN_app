@@ -9,6 +9,7 @@ import { Username } from "./components/master-layout/master-layout.component";
 
 import { Customer } from "./components/master-layout/master-layout.component";
 import { User } from "./classes/authentication";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class APIDataService {
 
 
 
-  private apiURL = 'http://localhost:5000/api/v1'; //kje se nahaja API.
+  private apiURL = environment.apiUrl; //kje se nahaja API.
 
   public getCustomers(): Observable<Customer[]> {
     var token = this.auth.getToken()

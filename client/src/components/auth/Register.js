@@ -35,7 +35,7 @@ function Register() {
         const body = JSON.stringify(newUser);
 
         const res = axios.post(
-          'http://localhost:5000/auth/register',
+          'http://localhost/auth/register',
           body,
           config
         );
