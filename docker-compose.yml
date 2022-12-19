@@ -11,6 +11,7 @@ services:
             MONGO_INITDB_DATABASE: customers
         volumes:
             - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+            - ./mongo/data:/data/db
         networks:
           mern:
     mern_app:
