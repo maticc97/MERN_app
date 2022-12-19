@@ -13,16 +13,6 @@ services:
             - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
         networks:
           mern:
-
-    mongo-experess:
-        image: mongo-express:latest
-        container_name: mongo-express
-   #     environment:
-    #      - ME_CONFIG_MONGODB_SERVER=mern_mongodb
-        ports:
-          - 8081:8081
-        networks:
-          mern:
     mern_app:
         image: mern_app:latest
         container_name: mern_app
